@@ -1,10 +1,11 @@
-package com.grank.uiarch.ui.home.tab
+package com.grank.uiarch.ui.home
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.grank.uiarch.R
+import com.grank.uiarch.ui.home.tab.PlaceholderFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
