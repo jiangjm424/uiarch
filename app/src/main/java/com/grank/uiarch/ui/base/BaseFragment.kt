@@ -103,7 +103,8 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
-        log("onHiddenChanged hidden: $hidden $this")
+        val hideStr = if (hidden) "hide" else "show"
+        log(" onHiddenChanged $hideStr $this")
         super.onHiddenChanged(hidden)
     }
 
