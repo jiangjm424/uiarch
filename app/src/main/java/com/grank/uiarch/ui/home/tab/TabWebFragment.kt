@@ -53,7 +53,7 @@ class TabWebFragment : AbsDataBindingFragment<FragmentTabWebBinding>() {
 //                        .useMiddlewareWebClient(getMiddleWareWebClient())
                 .createAgentWeb()//
                 .ready()//
-                .go("https://www.jd.com/")
+                .go("http://www.jd.com/")
     }
 
     override fun onResume() {
