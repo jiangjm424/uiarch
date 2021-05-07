@@ -6,12 +6,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.ui.dashboard.DashboardFragment
 import com.grank.uiarch.ui.ext.setupWithFragments
 import com.grank.uiarch.ui.home.HomeFragment
 import com.grank.uiarch.ui.notifications.NotificationsFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject lateinit var hiltTest: HiltTest
 
     private var bottomNavigationView: BottomNavigationView? = null
 
@@ -20,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        setupBottomNavByGraph()
         setupBottomNavigationBar()
+        hiltTest.print()
     }
 
     private fun setupBottomNavByGraph() {

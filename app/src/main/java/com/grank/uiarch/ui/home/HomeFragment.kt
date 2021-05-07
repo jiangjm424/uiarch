@@ -8,9 +8,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
+import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
+
+    @Inject lateinit var hiltTest: HiltTest
 
     override val layoutRes: Int = R.layout.fragment_home
 
@@ -26,6 +32,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+            hiltTest.print()
         }
     }
 

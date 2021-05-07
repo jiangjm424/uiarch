@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -53,6 +55,11 @@ dependencies {
     //by viewModels是在这两个库中
     implementation 'androidx.fragment:fragment-ktx:1.3.3'
     implementation 'androidx.activity:activity-ktx:1.2.2'
+
+    implementation deps.hilt.android
+    kapt deps.hilt.kapt
+    implementation deps.hilt.viewmodel
+    kapt deps.hilt.viewmodel_kapt
 
     //agentweb
     implementation 'com.github.Justson.AgentWeb:agentweb-core:v4.1.9-androidx' // (必选)
