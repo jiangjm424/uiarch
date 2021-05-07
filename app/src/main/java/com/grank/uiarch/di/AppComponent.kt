@@ -1,5 +1,8 @@
 package com.grank.uiarch.di
 
+import android.app.Application
+import android.content.Context
+import android.view.WindowManager
 import com.grank.uiarch.testdi.HiltTest
 import dagger.Module
 import dagger.Provides
@@ -16,5 +19,15 @@ object AppComponent {
     @Provides
     fun provideHiltTest():HiltTest {
         return HiltTest()
+    }
+    @Singleton
+    @Provides
+    fun provideWindowManager(context: Application): WindowManager {
+        return context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    }
+    @Singleton
+    @Provides
+    fun provideAutoSizeStrategy(): AutoAdaptStrategy {
+        return WrapperAutoAdaptStrategy(DefaultAutoAdaptStrategy())
     }
 }
