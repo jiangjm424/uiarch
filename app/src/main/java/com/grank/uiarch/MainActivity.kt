@@ -3,21 +3,28 @@ package com.grank.uiarch
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.grank.logger.Log
 import com.grank.uiarch.testdi.HiltTest
+import com.grank.uiarch.testdi.SelfDi
 import com.grank.uiarch.ui.dashboard.DashboardFragment
 import com.grank.uiarch.ui.ext.setupWithFragments
 import com.grank.uiarch.ui.home.HomeFragment
 import com.grank.uiarch.ui.notifications.NotificationsFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var hiltTest: HiltTest
+
+    @Inject lateinit var selfDi: SelfDi
 
     private var bottomNavigationView: BottomNavigationView? = null
 
@@ -27,6 +34,12 @@ class MainActivity : AppCompatActivity() {
 //        setupBottomNavByGraph()
         setupBottomNavigationBar()
         hiltTest.print()
+        selfDi.pp()
+        lifecycleScope.launch(Dispatchers.IO) {
+            while (true) {
+                Log.i("adaf","fasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdf")
+            }
+        }
     }
 
     private fun setupBottomNavByGraph() {

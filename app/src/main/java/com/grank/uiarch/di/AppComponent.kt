@@ -9,6 +9,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import me.jessyan.autosize.AutoAdaptStrategy
+import me.jessyan.autosize.DefaultAutoAdaptStrategy
+import me.jessyan.autosize.WrapperAutoAdaptStrategy
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -17,7 +20,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object AppComponent {
 
-    @Singleton
     @Provides
     fun provideHiltTest():HiltTest {
         return HiltTest()

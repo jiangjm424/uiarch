@@ -12,6 +12,8 @@ import com.grank.logger.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.jessyan.autosize.AutoAdaptStrategy
+import me.jessyan.autosize.AutoSizeConfig
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -58,11 +60,11 @@ class InitManager
 
             })
         }
-        Log.i(TAG,"init done!!")
+        Log.i(TAG, "init done!!")
     }
 
-    private fun initLogger(context: Context,processName: String) {
-        Log.initLogger(context,processName, "UiArch", "",true) {
+    private fun initLogger(context: Context, processName: String) {
+        Log.initLogger(context, processName, "UiArch", "", true) {
             appLifecycleCoroutineScope.launch {
                 withContext(Dispatchers.IO) {
                     Log.trimLog()

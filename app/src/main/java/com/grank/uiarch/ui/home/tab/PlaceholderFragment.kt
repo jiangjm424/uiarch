@@ -5,12 +5,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentTabCommonBinding
+import com.grank.uiarch.testdi.HiltTest
+import com.grank.uiarch.testdi.SelfDi
 import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A placeholder fragment containing a simple view.
  */
+@AndroidEntryPoint
 class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
+
+    @Inject lateinit var hiltTest: HiltTest
+
+    @Inject lateinit var selfDi: SelfDi
 
     private val pageViewModel: PageViewModel by viewModels<PageViewModel>()
 
@@ -26,6 +35,8 @@ class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
         pageViewModel.text.observe(viewLifecycleOwner) {
             binding.sectionLabel.text = it
         }
+        hiltTest.print()
+        selfDi.pp()
     }
     companion object {
         /**

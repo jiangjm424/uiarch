@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.2.2'
 
     //auto size
-    deps.android_auto_size
+    implementation deps.android_auto_size
 
 
     //hilt
