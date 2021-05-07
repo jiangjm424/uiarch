@@ -52,6 +52,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
+    //自己的模块
+    implementation project(":logger")
+
     //by viewModels是在这两个库中
     implementation 'androidx.fragment:fragment-ktx:1.3.3'
     implementation 'androidx.activity:activity-ktx:1.2.2'
@@ -62,6 +65,7 @@ dependencies {
 
     //hilt
     implementation deps.hilt.android
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.0'
     kapt deps.hilt.kapt
     implementation deps.hilt.viewmodel
     kapt deps.hilt.viewmodel_kapt
