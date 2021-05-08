@@ -9,23 +9,25 @@ import com.grank.uiarch.R
 import com.grank.uiarch.ui.home.tab.PlaceholderFragment
 import com.grank.uiarch.ui.home.tab.TabWebFragment
 
-private val TAB_TITLES = arrayOf(
-    R.string.tab_text_1,
-    R.string.tab_text_2,
-R.string.tab_text_3
-)
-private val fragments = arrayOf(
-        PlaceholderFragment.newInstance( 1),
-        PlaceholderFragment.newInstance( 2),
-        TabWebFragment()
-)
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
+ *
+ * 首页page建议在进入时根据后台要求动态创建
  */
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
+    private val TAB_TITLES = arrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2,
+            R.string.tab_text_3
+    )
+    private val fragments = arrayOf(
+            PlaceholderFragment.newInstance( 1),
+            PlaceholderFragment.newInstance( 2),
+            TabWebFragment()
+    )
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
