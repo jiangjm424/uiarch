@@ -2,6 +2,7 @@ package com.grank.uiarch.activity
 
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -22,5 +23,8 @@ constructor(
     }
     val text = Transformations.map(_text) {
         it
+    }
+    val url = MutableLiveData<String>().apply {
+        value = "https://www.baidu.com/img/pc_77ae6a71fb2655cc1cc4ea1c7e7c41b6.gif"
     }
 }

@@ -1,0 +1,32 @@
+<resources>
+    <string name="years_ago">年前</string>
+    <string name="months_ago">月前</string>
+    <string name="weeks_ago">周前</string>
+    <string name="days_ago">日前</string>
+    <string name="hours_ago">小时前</string>
+    <string name="minutes_ago">分前</string>
+    <string name="just">刚刚</string>
+
+    <string name="today">今天</string>
+    <string name="yesterday">昨天</string>
+    <string name="the_day_before_yesterday">前天</string>
+
+    <string name="install_count">次安装</string>
+    <string name="download_count">次下载</string>
+    <string name="one_hundred_million">亿</string>
+    <string name="ten_thousand">万</string>
+
+    <string name="never_used">从未玩过</string>
+    <string name="used">玩过</string>
+    <string name="days_ago_1">天前</string>
+    <string name="today_used">今天玩过</string>
+
+    <string name="date_year">年</string>
+    <string name="date_moth">月</string>
+    <string name="date_day">日</string>
+    <string name="data_mm_dd">MM月dd日</string>
+    <string name="days_expired">将于%d天后失效</string>
+    <string name="hours_expired">将于%d小时后失效</string>
+    <string name="minutes_expired">将于%d分钟后失效</string>
+    <string name="already_expired">已失效，以后请在3天内领取</string>
+</resources>
