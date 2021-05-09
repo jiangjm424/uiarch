@@ -1,13 +1,11 @@
 package com.grank.uicommon.util
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.TranslateAnimation
-import java.util.concurrent.TimeUnit
-
+import androidx.databinding.BindingAdapter
 
 const val TO_VISIBLE = 1
 const val TO_GONE = 0
@@ -47,6 +45,15 @@ fun View.translate(from: Float, to: Float) {
     this.startAnimation(translateAnimation)
 }
 
+/**
+ * 方便控件view的显示与隐藏，同时也方便使用其是否显示的属性
+ */
+@set:BindingAdapter("visible")
+var View.visible
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }
 /**
  * 注册防重点击事件
  */
