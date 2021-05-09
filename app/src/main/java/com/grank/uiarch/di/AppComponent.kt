@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.view.WindowManager
 import androidx.lifecycle.*
+import com.dlong.netstatus.DLNetManager
 import com.grank.netcore.SERVER
 import com.grank.netcore.ServerApi
 import com.grank.netcore.core.ApiFactory
+import com.grank.netcore.core.NetStateManager
 import com.grank.netcore.core.VendorPlatform
 import com.grank.uiarch.testdi.HiltTest
 import dagger.Module
@@ -23,6 +25,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppComponent {
+
+    @Singleton
+    @Provides
+    fun provideNetStateManager(application: Application): NetStateManager {
+        return NetStateManager(DLNetManager.getInstance(application))
+    }
 
     @Singleton
     @Provides

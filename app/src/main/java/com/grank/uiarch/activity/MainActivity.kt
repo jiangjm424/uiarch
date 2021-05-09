@@ -6,6 +6,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.grank.logger.Log
+import com.grank.netcore.core.NetStateManager
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.ActivityMainBinding
 import com.grank.uiarch.testdi.HiltTest
@@ -27,6 +29,9 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
     @Inject
     lateinit var selfDi: SelfDi
 
+    @Inject
+    lateinit var netStateManager: NetStateManager
+
     private var bottomNavigationView: BottomNavigationView? = null
 
     private val viewModel:MainViewModel by viewModels()
@@ -42,6 +47,9 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
 
     override fun setupData(binding: ActivityMainBinding, lifecycleOwner: LifecycleOwner) {
         binding.viewModel = this.viewModel//将数据 绑定到XML布局中，当然这里也可以用livedata.observer(this){}来实现
+        netStateManager.netStateLiveData.observe(this) {
+            Log.i(it)
+        }
     }
 
     /**
