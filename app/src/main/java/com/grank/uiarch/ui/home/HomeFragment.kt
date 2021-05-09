@@ -6,6 +6,9 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.grank.logger.Log
+import com.grank.netcore.ServerApi
+import com.grank.netcore.core.Resource
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest
@@ -37,10 +40,17 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
                 .setAction("Action", null).show()
             hiltTest.print()
             selfDi.pp()
+            homeViewModel.getState()
         }
     }
 
     override fun setupData(binding: FragmentHomeBinding, lifecycleOwner: LifecycleOwner) {
 
+        homeViewModel.text.observe(this) {
+            if (it.status == Resource.Status.SUCCESS) {
+                Log.v("sucess:${it.data?.cstateno}")
+            }
+            Log.v("res:$it")
+        }
     }
 }

@@ -35,11 +35,6 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigationBar()
         hiltTest.print()
         selfDi.pp()
-        lifecycleScope.launch(Dispatchers.IO) {
-            while (true) {
-                Log.i("adaf","fasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdffasdfasfasdfsfasdfasdf")
-            }
-        }
     }
 
     private fun setupBottomNavByGraph() {

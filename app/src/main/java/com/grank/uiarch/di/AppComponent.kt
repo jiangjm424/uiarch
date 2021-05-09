@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.view.WindowManager
 import androidx.lifecycle.*
+import com.grank.netcore.SERVER
+import com.grank.netcore.ServerApi
+import com.grank.netcore.core.ApiFactory
+import com.grank.netcore.core.VendorPlatform
 import com.grank.uiarch.testdi.HiltTest
 import dagger.Module
 import dagger.Provides
@@ -20,6 +24,21 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object AppComponent {
 
+    @Singleton
+    @Provides
+    fun provideServerApi(apiFactory: ApiFactory):ServerApi {
+        return apiFactory.create(ServerApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiFactory(
+            context: Application,
+    ):ApiFactory {
+        return ApiFactory(context, VendorPlatform(context), SERVER, true)
+    }
+
+    @Singleton
     @Provides
     fun provideHiltTest():HiltTest {
         return HiltTest()

@@ -1,3 +1,4 @@
+include ':netcore'
 include ':logger'
 include ':app'
 rootProject.name = "UiArch"
