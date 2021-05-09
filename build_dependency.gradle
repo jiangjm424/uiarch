@@ -305,3 +305,10 @@ static def addRepos(RepositoryHandler handler) {
 }
 
 ext.addRepos = this.&addRepos
+
+def build_tools_versions = [:]
+build_tools_versions.min_sdk = 23
+build_tools_versions.target_sdk = 30
+build_tools_versions.build_tools = "30.0.3"
+
+ext.build_tools_versions = build_tools_versions
