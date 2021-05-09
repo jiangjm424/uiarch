@@ -11,7 +11,7 @@ import retrofit2.http.POST
 val SERVER = "http://139.198.189.139:8080/"
 
 /**
- * 1 在每个请求方法中，如果需要添加参数，则调用时传入的参数不能为null否则
+ * 1 在每个请求方法中，如果需要添加参数，则调用时传入的参数不能为null否则报错
  *   java.lang.IllegalArgumentException: Body parameter value must not be null
  * 2
  */

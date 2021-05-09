@@ -53,6 +53,7 @@ object AppComponent {
     fun provideAutoSizeStrategy(): AutoAdaptStrategy {
         return WrapperAutoAdaptStrategy(DefaultAutoAdaptStrategy())
     }
+
     @Provides
     @Singleton
     @Named("app")

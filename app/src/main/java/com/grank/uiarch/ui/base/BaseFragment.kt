@@ -2,12 +2,12 @@ package com.grank.uiarch.ui.base
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import com.grank.logger.Log
 
 /**
  * 提供基础功能的fragment,提供生命周期打印功能。
@@ -23,7 +23,7 @@ abstract class BaseFragment : Fragment() {
 
     private fun log(msg: String) {
         if (DEBUG) {
-            Log.v(TAG, msg)
+            Log.i(TAG, msg)
         }
     }
 

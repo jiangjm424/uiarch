@@ -67,6 +67,7 @@ dependencies {
     //hilt
     implementation deps.hilt.android
     implementation 'androidx.lifecycle:lifecycle-process:2.3.0'
+    implementation project(path: ':uicommon')
     kapt deps.hilt.kapt
     implementation deps.hilt.viewmodel
     kapt deps.hilt.viewmodel_kapt

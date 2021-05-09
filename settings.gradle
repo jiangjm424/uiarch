@@ -1,3 +1,4 @@
+include ':uicommon'
 include ':netcore'
 include ':logger'
 include ':app'

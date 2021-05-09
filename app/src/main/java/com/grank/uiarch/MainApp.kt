@@ -8,7 +8,8 @@ import javax.inject.Inject
 @HiltAndroidApp
 class MainApp:Application() {
 
-    @Inject lateinit var initManager: InitManager
+    @Inject
+    lateinit var initManager: InitManager
 
     override fun onCreate() {
         super.onCreate()
