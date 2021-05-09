@@ -223,6 +223,7 @@ deps.androidx_ktx_activity = "androidx.activity:activity-ktx:1.1.0"
 deps.androidx_ktx_fragment = "androidx.fragment:fragment-ktx:1.3.0-beta01"
 deps.androidx_fragment = "androidx.fragment:fragment:1.3.0-beta01"
 deps.android_auto_size = 'me.jessyan:autosize:1.2.1'
+deps.netstatusmanager = 'com.github.D10NGYANG:NetStatusManager:1.3'
 
 ext.common_sys_dependencies = [
         deps.support.app_compat,

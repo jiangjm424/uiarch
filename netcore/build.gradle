@@ -49,4 +49,5 @@ dependencies {
     api okhttp_dependencies
     api retrofit_dependencies
     api rxjava2_dependencies
+    api deps.netstatusmanager
 }

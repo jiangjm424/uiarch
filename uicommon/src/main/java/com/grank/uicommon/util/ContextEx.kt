@@ -154,9 +154,8 @@ fun Context.isPackageInstalled(packageName: String): Boolean {
     if (TextUtils.isEmpty(packageName)) {
         return false
     }
-    val info: ApplicationInfo
     return try {
-        info = packageManager.getApplicationInfo(packageName, 0)
+        val info = packageManager.getApplicationInfo(packageName, 0)
         info != null
     } catch (e: PackageManager.NameNotFoundException) {
         false
