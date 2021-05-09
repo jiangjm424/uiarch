@@ -171,10 +171,9 @@ fun Long.stampToTimeExpiredString(context: Context): String? {
 @SuppressLint("SimpleDateFormat")
 fun String.stampToTimeOffsetString(context: Context): String? {
     var ret = this
-    var date: Date? = null
     try {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        date = sdf.parse(this)
+        val date = sdf.parse(this)
         val second = (System.currentTimeMillis() - date.time) / 1000
         val days = second / (24 * 60 * 60)
         when {

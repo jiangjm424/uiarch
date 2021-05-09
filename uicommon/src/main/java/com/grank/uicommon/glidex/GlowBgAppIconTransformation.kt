@@ -1,4 +1,4 @@
-package com.grank.uicommon.glide
+package com.grank.uicommon.glidex
 
 import android.graphics.*
 import android.os.Build

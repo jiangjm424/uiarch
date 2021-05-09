@@ -1,8 +1,7 @@
-package com.grank.uicommon.util;
+package com.grank.uicommon.glidex;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-
 import androidx.annotation.DrawableRes;
 
 import com.grank.uicommon.R;
@@ -20,7 +19,7 @@ public class ImageOption {
     private final Drawable mPlaceHolderDrawable;
     private final Drawable mErrorHolderDrawable;
 
-    public ImageOption(Builder builder) {
+    private ImageOption(Builder builder) {
 
         mPlaceHolderResId = builder.placeHolderResId;
         mErrorHolderResId = builder.errorHolderResId;
@@ -41,11 +40,11 @@ public class ImageOption {
     }
 
     public Drawable getPlaceHolderDrawable(Resources res) {
-        return this.mPlaceHolderDrawable != null ? this.mPlaceHolderDrawable : res.getDrawable(this.getPlaceHolder());
+        return this.mPlaceHolderDrawable != null ? this.mPlaceHolderDrawable : res.getDrawable(this.getPlaceHolder(),null);
     }
 
     public Drawable getErrorHolderDrawable(Resources res) {
-        return this.mErrorHolderDrawable != null ? this.mErrorHolderDrawable : res.getDrawable(this.getErrorHolder());
+        return this.mErrorHolderDrawable != null ? this.mErrorHolderDrawable : res.getDrawable(this.getErrorHolder(),null);
     }
 
     public static final class Builder {
