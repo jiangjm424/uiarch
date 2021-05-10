@@ -1,15 +1,34 @@
 package com.grank.uicommon.util
 
+import android.app.ActivityManager
+import android.app.Application
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.os.Build
+import android.os.Process
 import android.text.TextUtils
 import android.view.ViewConfiguration
 import android.view.WindowManager
 import com.grank.logger.Log
+
+fun Context.getCurrentProcessName(): String {
+    var processName: String? = null
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        processName = Application.getProcessName()
+    } else {
+        val pid = Process.myPid()
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (appProcess in am.runningAppProcesses) {
+            if (appProcess.pid == pid) {
+                processName = appProcess.processName
+                break
+            }
+        }
+    }
+    return processName ?: ""
+}
 
 /**
  * dp 转 px
@@ -46,7 +65,7 @@ fun Context.getScreenSizeF(): Point {
  */
 fun Context.getDisplayWidth(): Int {
     val wm =
-        this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return wm.defaultDisplay.width
 }
 
@@ -58,7 +77,7 @@ fun Context.getDisplayWidth(): Int {
  */
 fun Context.getDisplayHeight(): Int {
     val wm =
-        this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     return wm.defaultDisplay.height
 }
 
@@ -70,7 +89,7 @@ fun Context.getDisplayHeight(): Int {
  */
 fun Context.getDisplayHeightNew(): Int {
     val wm =
-        this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     var height = wm.defaultDisplay.height
     if (this.hasNavBar()) {
         height += this.getNavigationBarHeight()
@@ -189,7 +208,7 @@ fun Context.startApp(pkgName: String) {
 fun Context.getAppName(pkgName: String?): String? {
     return try {
         val packageInfo = pkgName?.let { packageManager.getPackageInfo(it, 0) }
-         packageInfo?.applicationInfo?.loadLabel(packageManager).toString()
+        packageInfo?.applicationInfo?.loadLabel(packageManager).toString()
     } catch (e: Exception) {
         e.printStackTrace()
         null
