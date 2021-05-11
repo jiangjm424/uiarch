@@ -60,7 +60,7 @@ ext.lifecycle_dependencies = [
 ]
 
 def retrofit = [:]
-versions.retrofit = "2.8.0"
+versions.retrofit = "2.7.1"
 retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"

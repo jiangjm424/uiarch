@@ -1,0 +1,18 @@
+android {
+
+    flavorDimensions "ff"
+    productFlavors {
+        demo {
+            dimension "ff"
+            buildConfigField 'String', 'URL', '"https://m2-dev.fcb.com.cn"'
+        }
+        full {
+            dimension "ff"
+            buildConfigField 'String', 'URL', '"https://m-dev.fcb.com.cn"'
+        }
+    }
+}
+
+dependencies {
+
+}
