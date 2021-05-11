@@ -5,11 +5,12 @@ import android.content.Context
 import android.view.WindowManager
 import androidx.lifecycle.*
 import com.dlong.netstatus.DLNetManager
-import com.grank.netcore.SERVER
-import com.grank.netcore.ServerApi
-import com.grank.netcore.core.ApiFactory
-import com.grank.netcore.core.NetStateManager
-import com.grank.netcore.core.VendorPlatform
+import com.grank.datacenter.SERVER
+import com.grank.datacenter.ServerApi
+import com.grank.datacenter.net.ApiFactory
+import com.grank.datacenter.net.NetStateManager
+import com.grank.datacenter.net.VendorPlatform
+import com.grank.uiarch.BuildConfig
 import com.grank.uiarch.testdi.HiltTest
 import dagger.Module
 import dagger.Provides
@@ -43,7 +44,7 @@ object AppComponent {
     fun provideApiFactory(
             context: Application,
     ):ApiFactory {
-        return ApiFactory(context, VendorPlatform(context), SERVER, true)
+        return ApiFactory(context, VendorPlatform(context), BuildConfig.API_SERVER, true)
     }
 
     @Singleton

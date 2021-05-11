@@ -17,6 +17,6 @@ android {
 dependencies {
     //自己的模块
     implementation project(":logger")
-    implementation project(":netcore")
+    implementation project(':datacenter')
     implementation project(path: ':uicommon')
 }

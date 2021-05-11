@@ -2,13 +2,11 @@ package com.grank.uiarch.ui.home
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.grank.logger.Log
-import com.grank.netcore.ServerApi
-import com.grank.netcore.core.Resource
+import com.grank.datacenter.net.Resource
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest

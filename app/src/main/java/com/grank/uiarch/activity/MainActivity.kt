@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.grank.logger.Log
-import com.grank.netcore.core.NetStateManager
+import com.grank.datacenter.net.NetStateManager
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.ActivityMainBinding
 import com.grank.uiarch.testdi.HiltTest

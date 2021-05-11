@@ -306,9 +306,18 @@ static def addRepos(RepositoryHandler handler) {
 
 ext.addRepos = this.&addRepos
 
+
+//编译工具版本
 def build_tools_versions = [:]
 build_tools_versions.min_sdk = 23
 build_tools_versions.target_sdk = 30
 build_tools_versions.build_tools = "30.0.3"
-
 ext.build_tools_versions = build_tools_versions
+
+//后台接口
+def apiServerUrl = [:]
+//apiServerUrl.dev = '"https://m2-dev.fcb.com.cn/"'
+apiServerUrl.dev = '"https://localhost:6878/"'
+apiServerUrl.test = '"https://localhost:6878/"'
+apiServerUrl.release = '"https://localhost:6878/"'
+ext.apiServerUrl = apiServerUrl

@@ -12,8 +12,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/datacenter" />
             <option value="$PROJECT_DIR$/logger" />
-            <option value="$PROJECT_DIR$/netcore" />
             <option value="$PROJECT_DIR$/uicommon" />
           </set>
         </option>

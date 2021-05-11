@@ -1,5 +1,5 @@
 include ':uicommon'
-include ':netcore'
+include ':datacenter'
 include ':logger'
 include ':app'
 rootProject.name = "UiArch"

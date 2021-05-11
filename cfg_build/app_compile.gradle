@@ -12,13 +12,13 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField 'String', 'URL', '"debugf"'
+            buildConfigField 'String', 'API_SERVER', apiServerUrl.dev
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
         release {
-            buildConfigField 'String', 'URL', '"https://m-dev.fcb.com.cn"'
+            buildConfigField 'String', 'API_SERVER', apiServerUrl.dev
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
