@@ -2,9 +2,11 @@ package com.grank.uiarch.ui.home
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.grank.datacenter.db.DemoEntity
 import com.grank.logger.Log
 import com.grank.datacenter.net.Resource
 import com.grank.uiarch.R
@@ -13,6 +15,7 @@ import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
 import com.grank.uiarch.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,6 +29,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
+    var ii:Long = 0
     override fun setupView(binding: FragmentHomeBinding) {
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter
@@ -39,6 +43,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             hiltTest.print()
             selfDi.pp()
             homeViewModel.getState()
+            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString()+" hh"))
         }
     }
 
@@ -49,6 +54,14 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
                 Log.v("sucess:${it.data?.cstateno}")
             }
             Log.v("res:$it")
+        }
+        lifecycleScope.launchWhenCreated {
+
+            homeViewModel.getallDemo().collect {
+                it.forEach {
+                    Log.i("jiang","entity: ${it.name}")
+                }
+            }
         }
     }
 }

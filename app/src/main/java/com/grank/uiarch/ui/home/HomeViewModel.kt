@@ -2,11 +2,15 @@ package com.grank.uiarch.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.grank.datacenter.db.DemoEntity
 import com.grank.datacenter.net.Resource
 import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
+import com.grank.logger.Log
 import com.grank.uiarch.model.AppRepository
 import dagger.hilt.android.scopes.FragmentScoped
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @FragmentScoped
 class HomeViewModel
@@ -41,4 +45,12 @@ class HomeViewModel
             }
         }
     }
+    fun add(demoEntity: DemoEntity) {
+        viewModelScope.launch {
+            appRepository.addDemoItem(demoEntity).collect {
+                Log.i("jiang","add item:$it")
+            }
+        }
+    }
+    fun getallDemo() = appRepository.all()
 }

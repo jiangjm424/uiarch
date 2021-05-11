@@ -1,15 +1,17 @@
 package com.grank.uiarch.model
 
 import androidx.lifecycle.liveData
+import com.grank.datacenter.MainDb
 import com.grank.datacenter.ServerApi
+import com.grank.datacenter.db.DemoEntity
 import com.grank.datacenter.net.ApiResult
 import com.grank.datacenter.net.Resource
 import com.grank.datacenter.model.GetNewVersionReq
 import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
-
 /**
  * AppRepository 是通过后台的api接口请求数据的管理类，这里在调用请求是会返回些次请求的状态
  * 包括：Resource.Status.
@@ -21,7 +23,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class AppRepository  @Inject constructor(
-        private val serverApi: ServerApi
+        private val serverApi: ServerApi,
+        private val mainDb: MainDb
 ) {
     fun getState() = liveData<Resource<State>> {
         emit(Resource.loading())   //开始请求网络时，这里将请求状态置加载中，这样在UI中可以根据这个值来显示加载中的UI
@@ -56,4 +59,11 @@ class AppRepository  @Inject constructor(
             }
         }
     }
+
+    fun addDemoItem(demoEntity: DemoEntity) = flow<Int> {
+        mainDb.getDemoDao().insert(demoEntity)
+        emit(1)
+    }
+    fun all() = mainDb.getDemoDao().reportItems
+
 }
