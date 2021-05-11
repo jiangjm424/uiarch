@@ -46,7 +46,7 @@ class ApiResultCallAdapterFactory : CallAdapter.Factory() {
         override fun request(): Request = proxy.request()
         override fun isExecuted() = proxy.isExecuted
         override fun isCanceled() = proxy.isCanceled
-        override fun timeout(): Timeout = proxy.timeout()
+        //override fun timeout(): Timeout = proxy.timeout()
 
         abstract fun enqueueImpl(callback: Callback<TOut>)
         abstract fun cloneImpl(): Call<TOut>

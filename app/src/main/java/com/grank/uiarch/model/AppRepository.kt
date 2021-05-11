@@ -4,6 +4,8 @@ import androidx.lifecycle.liveData
 import com.grank.netcore.ServerApi
 import com.grank.netcore.core.ApiResult
 import com.grank.netcore.core.Resource
+import com.grank.netcore.model.GetNewVersionReq
+import com.grank.netcore.model.GetNewVersionResp
 import com.grank.netcore.model.State
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,6 +26,25 @@ class AppRepository  @Inject constructor(
     fun getState() = liveData<Resource<State>> {
         emit(Resource.loading())   //开始请求网络时，这里将请求状态置加载中，这样在UI中可以根据这个值来显示加载中的UI
         val result = serverApi.getState()
+        result.log()
+        when(result) {
+            is ApiResult.Success -> {
+                val dd = result.getRealData()
+                emit(Resource.success(dd))
+            }
+            is ApiResult.Fail -> {
+                emit(Resource.fail(result.errorNumber, result.errorMessage, result.getRealData()))
+            }
+        }
+    }
+    fun checkNewVersion() = liveData<Resource<GetNewVersionResp>> {
+        emit(Resource.loading())   //开始请求网络时，这里将请求状态置加载中，这样在UI中可以根据这个值来显示加载中的UI
+        val result = serverApi.checkNewVersion(GetNewVersionReq().apply {
+            applicationPackage = "com.fcb.bao.consumer"
+            terminalType = "1"
+            versionNumber = "1.3.3"
+            uuid = "177f0db7ce997474"
+        })
         result.log()
         when(result) {
             is ApiResult.Success -> {

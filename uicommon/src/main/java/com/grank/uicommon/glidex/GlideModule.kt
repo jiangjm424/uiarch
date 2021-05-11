@@ -24,15 +24,16 @@ class GlideModule : AppGlideModule() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         super.registerComponents(context, glide, registry)
-        val resourceDrawableDecoder = ResourceDrawableDecoder(context)
-        registry.append(
-            Uri::class.java,
-            AdaptiveIconDrawable::class.java,
-            AdaptiveIconDecoder(resourceDrawableDecoder)
-        )
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val resourceDrawableDecoder = ResourceDrawableDecoder(context)
+            registry.append(
+                Uri::class.java,
+                AdaptiveIconDrawable::class.java,
+                AdaptiveIconDecoder(resourceDrawableDecoder)
+            )
+        }
     }
 
     override fun isManifestParsingEnabled(): Boolean {

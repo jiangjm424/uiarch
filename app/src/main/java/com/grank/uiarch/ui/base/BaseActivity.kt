@@ -17,7 +17,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun log(msg: String) {
         if (DEBUG) {
-            Log.i(TAG, msg)
+            Log.v(TAG, msg)
         }
     }
 

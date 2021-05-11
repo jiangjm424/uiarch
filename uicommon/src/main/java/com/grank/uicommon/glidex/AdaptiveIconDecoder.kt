@@ -19,11 +19,10 @@ class AdaptiveIconDecoder(private val resourceDrawableDecoder: ResourceDrawableD
                 && source.authority != null && adaptiveIconPkgSet.contains(source.authority!!)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun decode(source: Uri, width: Int, height: Int, options: Options): Resource<AdaptiveIconDrawable>? {
         val resource = resourceDrawableDecoder.decode(source, width, height, options) ?: return null
         val drawable = resource.get()
-        if (drawable is AdaptiveIconDrawable)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && drawable is AdaptiveIconDrawable)
             return resource as Resource<AdaptiveIconDrawable>
         return null
     }
