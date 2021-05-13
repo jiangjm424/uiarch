@@ -60,12 +60,7 @@ dependencies {
     implementation deps.android_auto_size
 
 
-    //hilt
-    implementation deps.hilt.android
     implementation deps.lifecycle_process
-    kapt deps.hilt.kapt
-    implementation deps.hilt.viewmodel
-    kapt deps.hilt.viewmodel_kapt
 
     //test
     testImplementation 'junit:junit:4.+'
