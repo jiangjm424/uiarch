@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.grank.routercontroller">
+
+    <application>
+        <activity android:name=".DispatcherActivity">
+
+        </activity>
+        <provider
+            android:exported="false"
+            android:authorities="${applicationId}.init.router.provider"
+            android:name=".InitRouterProvider"/>
+    </application>
+</manifest>

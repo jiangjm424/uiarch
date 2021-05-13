@@ -14,15 +14,26 @@ android {
     }
 }
 
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 dependencies {
     //自己的模块
     implementation project(":logger")
     implementation project(':datacenter')
     implementation project(path: ':uicommon')
+    implementation project(path: ':routercontroller')
 
     //hilt
     implementation deps.hilt.android
     kapt deps.hilt.kapt
     implementation deps.hilt.viewmodel
     kapt deps.hilt.viewmodel_kapt
+
+    //arouter
+    implementation deps.arouter.router_api
+    kapt deps.arouter.kapt
 }

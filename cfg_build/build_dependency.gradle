@@ -119,6 +119,14 @@ room.rxjava2 = "androidx.room:room-rxjava2:${versions.room}"
 room.testing = "androidx.room:room-testing:${versions.room}"
 deps.room = room
 
+
+def arouter = [:]
+versions.arouter = "1.5.1"
+arouter.plugin = "com.alibaba:arouter-register:1.0.2"
+arouter.router_api = "com.alibaba:arouter-api:${versions.arouter}"
+arouter.kapt = "com.alibaba:arouter-compiler:${versions.arouter}"
+deps.arouter = arouter
+
 def hilt = [:]
 versions.hilt = "2.28-alpha"
 hilt.plugin = "com.google.dagger:hilt-android-gradle-plugin:${versions.hilt}"
