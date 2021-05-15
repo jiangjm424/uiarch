@@ -13,7 +13,7 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
-import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -21,15 +21,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
 
-    @Inject lateinit var hiltTest: HiltTest
+    @Inject
+    lateinit var hiltTest: HiltTest
 
-    @Inject lateinit var selfDi: SelfDi
+    @Inject
+    lateinit var selfDi: SelfDi
 
     override val layoutRes: Int = R.layout.fragment_home
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels(
+        {
+            requireActivity()
+        }
+    )
 
-    var ii:Long = 0
+    var ii: Long = 0
     override fun setupView(binding: FragmentHomeBinding) {
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter
@@ -43,7 +49,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             hiltTest.print()
             selfDi.pp()
             homeViewModel.getState()
-            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString()+" hh"))
+            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
         }
     }
 
@@ -59,7 +65,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
 
             homeViewModel.getallDemo().collect {
                 it.forEach {
-                    Log.i("jiang","entity: ${it.name}")
+                    Log.i("jiang", "entity: ${it.name}")
                 }
             }
         }

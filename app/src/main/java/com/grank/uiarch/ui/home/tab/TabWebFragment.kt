@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentTabWebBinding
-import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 

@@ -7,7 +7,7 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentTabCommonBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
-import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

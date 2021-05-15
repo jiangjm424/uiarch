@@ -12,7 +12,7 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.ActivityMainBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
-import com.grank.uiarch.ui.base.AbsDataBindingActivity
+import com.grank.uicommon.ui.base.AbsDataBindingActivity
 import com.grank.uiarch.ui.dashboard.DashboardFragment
 import com.grank.uiarch.ui.ext.setupWithFragments
 import com.grank.uiarch.ui.home.HomeFragment

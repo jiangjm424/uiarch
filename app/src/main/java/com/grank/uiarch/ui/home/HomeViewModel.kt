@@ -1,5 +1,6 @@
 package com.grank.uiarch.ui.home
 
+import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.grank.datacenter.db.DemoEntity
@@ -8,6 +9,7 @@ import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
 import com.grank.logger.Log
 import com.grank.uiarch.model.AppRepository
+import com.grank.uicommon.ui.base.BaseViewModel
 import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -15,8 +17,9 @@ import kotlinx.coroutines.launch
 @FragmentScoped
 class HomeViewModel
 @ViewModelInject constructor(
-        private val appRepository: AppRepository
-) : ViewModel() {
+    application: Application,
+    private val appRepository: AppRepository
+) : BaseViewModel(application) {
 
     //这里面监听数据根据实际情况，如果只要关注加载中，成功或者失败，则这里面监听的类型是Resource<State>
     //如果只是关心实际数据，则我们可以监听实际数据即可
@@ -36,6 +39,7 @@ class HomeViewModel
     val newAppVersion = Transformations.map(_newAppVersion) {
         it
     }
+
     fun checkNewVersion() {
         val source = appRepository.checkNewVersion()
         _newAppVersion.addSource(source) {
@@ -45,12 +49,14 @@ class HomeViewModel
             }
         }
     }
+
     fun add(demoEntity: DemoEntity) {
         viewModelScope.launch {
             appRepository.addDemoItem(demoEntity).collect {
-                Log.i("jiang","add item:$it")
+                Log.i("jiang", "add item:$it")
             }
         }
     }
+
     fun getallDemo() = appRepository.all()
 }

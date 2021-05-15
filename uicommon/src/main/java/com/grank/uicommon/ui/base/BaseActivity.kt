@@ -1,7 +1,6 @@
-package com.grank.uiarch.ui.base
+package com.grank.uicommon.ui.base
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity

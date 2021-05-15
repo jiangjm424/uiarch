@@ -9,7 +9,9 @@ import com.grank.datacenter.net.Resource
 import com.grank.datacenter.model.GetNewVersionReq
 import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Singleton
 /**
@@ -63,7 +65,7 @@ class AppRepository  @Inject constructor(
     fun addDemoItem(demoEntity: DemoEntity) = flow<Int> {
         mainDb.getDemoDao().insert(demoEntity)
         emit(1)
-    }
+    }.flowOn(Dispatchers.IO)
     fun all() = mainDb.getDemoDao().reportItems
 
 }

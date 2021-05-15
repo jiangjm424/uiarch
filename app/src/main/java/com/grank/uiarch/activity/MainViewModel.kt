@@ -2,12 +2,11 @@ package com.grank.uiarch.activity
 
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.grank.uiarch.model.AppRepository
-import com.grank.uiarch.ui.base.BaseViewModel
+import com.grank.uicommon.ui.base.BaseViewModel
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @ActivityRetainedScoped

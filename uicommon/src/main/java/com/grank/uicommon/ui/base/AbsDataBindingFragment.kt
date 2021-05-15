@@ -1,4 +1,4 @@
-package com.grank.uiarch.ui.base
+package com.grank.uicommon.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 
 /**

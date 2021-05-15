@@ -1,4 +1,4 @@
-package com.grank.uiarch.ui.base
+package com.grank.uicommon.ui.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -14,7 +14,7 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.DashItemBinding
 import com.grank.uiarch.databinding.FragmentDashboardBinding
 import com.grank.uiarch.testvo.DemoItemImageText
-import com.grank.uiarch.ui.base.AbsDataBindingFragment
+import com.grank.uicommon.ui.base.AbsDataBindingFragment
 
 class DashboardFragment : AbsDataBindingFragment<FragmentDashboardBinding>() {
 
