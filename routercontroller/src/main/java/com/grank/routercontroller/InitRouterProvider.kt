@@ -5,15 +5,15 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 
 class InitRouterProvider: ContentProvider() {
     override fun onCreate(): Boolean {
-        ARouter.openDebug()
-        ARouter.openLog()
+        if (BuildConfig.DEBUG) {
+            ARouter.openDebug()
+            ARouter.openLog()
+        }
         ARouter.init(context as Application?)
-        Log.i("jiang","jiang")
         return true
     }
 

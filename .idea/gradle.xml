@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/datacenter" />
             <option value="$PROJECT_DIR$/logger" />
             <option value="$PROJECT_DIR$/routercontroller" />
+            <option value="$PROJECT_DIR$/smartadapter" />
             <option value="$PROJECT_DIR$/uicommon" />
           </set>
         </option>

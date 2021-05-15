@@ -1,0 +1,1 @@
+这里面adapter的数据类型统一使用SmartCardData.里面存了卡片的id, style, title,

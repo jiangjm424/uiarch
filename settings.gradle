@@ -1,3 +1,4 @@
+include ':smartadapter'
 include ':routercontroller'
 include ':uicommon'
 include ':datacenter'
