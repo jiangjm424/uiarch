@@ -75,9 +75,7 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
             listOf(
                 Pair(R.id.navigation_home, HomeFragment::class.java as Class<Fragment>),
                 Pair(R.id.navigation_dashboard, DashboardFragment::class.java as Class<Fragment>),
-                Pair(
-                    R.id.navigation_notifications,
-                    NotificationsFragment::class.java as Class<Fragment>
+                Pair(R.id.navigation_notifications, NotificationsFragment::class.java as Class<Fragment>
                 )
             ),
             fragmentManager = supportFragmentManager,

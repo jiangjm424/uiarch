@@ -72,4 +72,8 @@ class DashboardFragment : AbsDataBindingFragment<FragmentDashboardBinding>() {
         }
     }
     class VH(val bind:DashItemBinding):RecyclerView.ViewHolder(bind.root){}
+
+    override fun onPageFirstComing() {
+
+    }
 }

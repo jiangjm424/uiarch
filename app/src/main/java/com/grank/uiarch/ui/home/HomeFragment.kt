@@ -70,4 +70,12 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             }
         }
     }
+
+    override fun onPageFirstComing() {
+
+    }
+
+    override fun destroyView(binding: FragmentHomeBinding) {
+
+    }
 }

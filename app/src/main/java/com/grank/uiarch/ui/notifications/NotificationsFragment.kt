@@ -21,4 +21,12 @@ class NotificationsFragment : AbsDataBindingFragment<FragmentNotificationsBindin
             binding.textNotifications.text = it
         })
     }
+
+    override fun onPageFirstComing() {
+
+    }
+
+    override fun destroyView(binding: FragmentNotificationsBinding) {
+
+    }
 }

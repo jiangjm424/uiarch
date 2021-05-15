@@ -69,7 +69,6 @@ private fun showSelectItem(
 ) {
     val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)!!
     fragmentManager.beginTransaction()
-        // fix http://tapd.oa.com/20395302/bugtrace/bugs/view?bug_id=1020395302084998357&url_cache_key=461ef2976f51e6497f0d3960df575914 bug
         // 问题暂时未明确
 //        .setCustomAnimations(
 //            R.anim.fragment_enter_anim,

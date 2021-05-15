@@ -71,4 +71,12 @@ class TabWebFragment : AbsDataBindingFragment<FragmentTabWebBinding>() {
         super.onDestroy()
     }
 
+    override fun onPageFirstComing() {
+
+    }
+
+    override fun destroyView(binding: FragmentTabWebBinding) {
+
+    }
+
 }

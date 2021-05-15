@@ -3,6 +3,8 @@ package com.grank.uiarch.ui.home.tab
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.grank.logger.Log
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentTabCommonBinding
 import com.grank.uiarch.testdi.HiltTest
@@ -31,6 +33,10 @@ class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
         pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
     }
 
+    override fun onPageFirstComing() {
+        Log.i("Base","loadingDataWhenResume")
+        Log.i("jiang","loadingDataWhenResume")
+    }
     override fun setupData(binding: FragmentTabCommonBinding, lifecycleOwner: LifecycleOwner) {
         pageViewModel.text.observe(viewLifecycleOwner) {
             binding.sectionLabel.text = it
@@ -57,6 +63,10 @@ class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
                 }
             }
         }
+    }
+
+    override fun destroyView(binding: FragmentTabCommonBinding) {
+
     }
 
 }
