@@ -22,8 +22,27 @@ import androidx.core.util.forEach
 import androidx.core.util.set
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
+/**
+ * 在BottomNavigationView上管理的fragment使用懒加载的方式，
+ * 懒加载实现的方案：
+ * 在目前情况下，fragment加载到布局中后，会一直跑到onResume状态，如果加载多个且不去hide部分时，则会出现重叠等
+ * 现象，而onResume时表示fragment显示到了屏幕上，这里也是我们想开始加载数据的地方，但是只是首次onResume时才加载
+ * 因此懒加载的实现可以让没有显示的fragment只到start状态，当前显示的fragment才到resume状态，按以下两种情况处理：
+ * 在初始化过程
+ * 1 先将所有的fragment添加到containerId上，同时将fragment的最大生命周期置start
+ * 2 找到当前需要显示的fragment,修改其最大生命周期为resume
+ * 3 commit提交
+ * 在点击过程
+ * 1 将当前的生命周期修改为start （点击还未生效时的当前fragment)
+ * 2 修改当前fragment对象，并改成resume
+ * 3 commit
+ * @receiver BottomNavigationView
+ * @param fragmentList List<Pair<Int, Class<T>>>
+ * @param fragmentManager FragmentManager
+ * @param containerId Int
+ * @param navItemSelectListener Function1<[@kotlin.ParameterName] MenuItem, Unit> */
 fun <T : Fragment> BottomNavigationView.setupWithFragments(
     fragmentList: List<Pair<Int, Class<T>>>,
     fragmentManager: FragmentManager,
@@ -67,26 +86,23 @@ private fun showSelectItem(
     navMenuItemIdToTagMap: SparseArray<String>,
     newlySelectedItemTag: String,
 ) {
-    val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)!!
-    fragmentManager.beginTransaction()
-        // 问题暂时未明确
-//        .setCustomAnimations(
-//            R.anim.fragment_enter_anim,
-//            R.anim.fragment_exit_anim,
-//            R.anim.fragment_pop_enter_anim,
-//            R.anim.fragment_pop_exit_anim
-//        )
-        .show(selectedFragment)
-        .setPrimaryNavigationFragment(selectedFragment)
-        .apply {
-            // Detach all other Fragments
-            navMenuItemIdToTagMap.forEach { _, fragmentTag ->
-                if (fragmentTag != newlySelectedItemTag) {
-                    hide(fragmentManager.findFragmentByTag(fragmentTag)!!)
-                }
+    val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
+    selectedFragment?.let { select ->
+        val transaction = fragmentManager.beginTransaction()
+        transaction.setPrimaryNavigationFragment(select)
+        navMenuItemIdToTagMap.forEach { _, fragmentTag ->
+            if (fragmentTag != newlySelectedItemTag) {
+                val fragment = fragmentManager.findFragmentByTag(fragmentTag)!!
+                transaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+                transaction.hide(fragment)
+            } else {
+                val fragment = fragmentManager.findFragmentByTag(fragmentTag)!!
+                transaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+                transaction.show(fragment)
             }
         }
-        .commit()
+        transaction.commitNow()
+    }
 }
 
 private fun <T : Fragment> BottomNavigationView.addFragments(
@@ -95,20 +111,24 @@ private fun <T : Fragment> BottomNavigationView.addFragments(
     containerId: Int,
     navMenuItemIdToTagMap: SparseArray<String>
 ) {
+    val transaction = fragmentManager.beginTransaction()
     fragmentList.forEachIndexed { index, fragmentParam ->
         val fragmentTag = getFragmentTag(index)
         val fragmentNavItemId = fragmentParam.first
         val fragmentClass = fragmentParam.second
         // Find or create the Navigation host fragment
         val fragment = obtainFragment(fragmentManager, fragmentClass, fragmentTag, containerId)
+        transaction.add(containerId, fragment, fragmentTag)
         // Save to the map
         navMenuItemIdToTagMap[fragmentNavItemId] = fragmentTag
         if (this.selectedItemId == fragmentNavItemId) {
-            showFragment(fragmentManager, fragment, index == 0)
+            transaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
         } else {
-            hideFragment(fragmentManager, fragment)
+            transaction.hide(fragment)
+            transaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED)
         }
     }
+    transaction.commitNow()
 }
 
 private fun BottomNavigationView.setupItemReselected(
@@ -129,11 +149,12 @@ private fun <T : Fragment> obtainFragment(
 ): Fragment {
     val existingFragment = fragmentManager.findFragmentByTag(fragmentTag)
     existingFragment?.let { return it }
-    val fragment = fragmentManager.fragmentFactory.instantiate(fragmentClass.classLoader!!, fragmentClass.name)
+    val fragment =
+        fragmentManager.fragmentFactory.instantiate(fragmentClass.classLoader!!, fragmentClass.name)
 //    fragment.arguments = fragmentArgs
-    fragmentManager.beginTransaction()
-        .add(containerId, fragment, fragmentTag)
-        .commitNow()
+//    fragmentManager.beginTransaction()
+//        .add(containerId, fragment, fragmentTag)
+//        .commitNow()
     return fragment
 }
 

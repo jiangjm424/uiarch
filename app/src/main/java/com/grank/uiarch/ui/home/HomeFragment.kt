@@ -7,8 +7,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.grank.datacenter.db.DemoEntity
-import com.grank.logger.Log
 import com.grank.datacenter.net.Resource
+import com.grank.logger.Log
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest
@@ -41,6 +41,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
         binding.viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(binding.viewPager)
+        tabs.tabMode = TabLayout.MODE_SCROLLABLE
         val fab: FloatingActionButton = binding.fab
 
         fab.setOnClickListener { view ->
@@ -72,7 +73,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
     }
 
     override fun onPageFirstComing() {
-
+        Log.i("jiang","home page first coming")
     }
 
     override fun destroyView(binding: FragmentHomeBinding) {
