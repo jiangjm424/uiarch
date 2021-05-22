@@ -53,10 +53,11 @@ abstract class ApiResult<T> {
                     "empty response body error ",
                     HttpURLConnection.HTTP_NO_CONTENT,
                 )
-            if ("000000" != commonResponse.code) {
+            val errorNumber = ErrorCode.parseCode(commonResponse.code)
+            if (errorNumber != 0) {
                 val errorMessage =
-                    "RC error code : ${commonResponse.code} not 000000 error msg: ${commonResponse.message}"
-                return Fail(RC_ERROR, errorMessage, 0, commonResponse.code?:"", commonResponse)
+                    "RC error code : ${commonResponse.code} and parsed code is $errorNumber, error msg: ${commonResponse.message}"
+                return Fail(RC_ERROR, errorMessage, errorNumber,  commonResponse)
             }
 
 
@@ -117,8 +118,7 @@ abstract class ApiResult<T> {
     class Fail<T>(
         val failType: @FAIL_TYPE Int,
         val errorMessage: String,
-        private val errorNumber: Int = 0, // 和 FailType 对应的具体错误号
-        val errorCode: String = "",
+        val errorNumber: Int = 0, // 和 FailType 对应的具体错误号，错误码表查看ErrorCode
         private val commonResponse: CommonResponse<T>? = null
     ) : ApiResult<T>() {
 
@@ -147,7 +147,6 @@ abstract class ApiResult<T> {
             sb.append("Api Result Fail(")
             sb.append("failType=").append(failType).append(",")
             sb.append("errorNumber=").append(errorNumber).append(",")
-            sb.append("errorCode=").append(errorCode).append(",")
             sb.append("errorMessage=").append(errorMessage).append("")
             sb.append(")")
             return sb.toString()
@@ -157,7 +156,6 @@ abstract class ApiResult<T> {
             val sb = StringBuilder()
             sb.append("ApiResult Fail(")
             sb.append("failType=").append(failType).append(",")
-            sb.append("errorCode=").append(errorCode).append("")
             sb.append(")\n")
             sb.append(errorMessage)
             Log.e("OkHttp2", sb.toString())

@@ -13,6 +13,8 @@ import com.grank.uiarch.model.AppRepository
 import com.grank.uicommon.ui.base.BaseViewModel
 import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @FragmentScoped
@@ -60,4 +62,8 @@ class HomeViewModel
     }
 
     fun getallDemo() = appRepository.all()
+    fun fflow() = flow<Int> {
+        emit(1)
+    }
+    val f = flowOf(1)
 }

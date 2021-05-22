@@ -16,6 +16,7 @@ import com.grank.uiarch.testdi.SelfDi
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,6 +52,12 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             selfDi.pp()
 //            homeViewModel.getState()
             homeViewModel.checkNewVersion()
+            viewLifecycleScope.launch {
+
+                homeViewModel.f.collect {
+Log.i("jiang","it :$it")
+                }
+            }
 //            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
         }
     }

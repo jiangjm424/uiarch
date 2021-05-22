@@ -39,7 +39,7 @@ class AppRepository  @Inject constructor(
                 emit(Resource.success(dd))
             }
             is ApiResult.Fail -> {
-                emit(Resource.fail(result.errorCode, result.errorMessage, result.getRealData()))
+                emit(Resource.fail(result.errorNumber, result.errorMessage, result.getRealData()))
             }
         }
     }
@@ -58,7 +58,7 @@ class AppRepository  @Inject constructor(
                 emit(Resource.success(dd))
             }
             is ApiResult.Fail -> {
-                emit(Resource.fail(result.errorCode, result.errorMessage, result.getRealData()))
+                emit(Resource.fail(result.errorNumber, result.errorMessage, result.getRealData()))
             }
         }
     }

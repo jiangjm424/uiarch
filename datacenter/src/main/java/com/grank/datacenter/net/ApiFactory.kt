@@ -8,8 +8,10 @@ import com.flipkart.okhttpstats.interpreter.DefaultInterpreter
 import com.flipkart.okhttpstats.reporter.NetworkEventReporterImpl
 import com.grank.logger.Log
 import com.grank.datacenter.BuildConfig.*
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -71,6 +73,7 @@ class ApiFactory(
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient().newBuilder().apply {
             configOkHttpNetAnalyzeHelper(this)
+            configHttpRequestHeader(this)
             connectTimeout(10, TimeUnit.SECONDS)
             readTimeout(10, TimeUnit.SECONDS)
             if (allowUnsafeSsl) {
@@ -89,6 +92,14 @@ class ApiFactory(
             .build()
     }
 
+    private fun configHttpRequestHeader(okHttpClientBuilder: OkHttpClient.Builder) {
+        okHttpClientBuilder.addInterceptor(object :Interceptor{
+            override fun intercept(chain: Interceptor.Chain): Response {
+                val originReq = chain.request()
+                return chain.proceed(originReq)
+            }
+        })
+    }
     private fun configOkHttpNetAnalyzeHelper(okHttpClientBuilder: OkHttpClient.Builder) {
         if ((BUILD_TYPE == "proguard" || BUILD_TYPE == "debug")) {
             // 打印 连接开始 dns解析开始 结束 等各种事件，可用于定位请求耗时问题

@@ -13,7 +13,7 @@ import com.grank.datacenter.net.Resource.Status.Companion.SUCCESS
 data class Resource<out T>(
         val status: @Status Int,
         val data: T?,
-        val errorCode: String = "",
+        val errorCode: Int = 0,
         val message: String? = null
 ) {
 
@@ -33,7 +33,7 @@ data class Resource<out T>(
             return Resource(SUCCESS, data)
         }
 
-        fun <T> fail(errorCode: String, msg: String?, data: T? = null): Resource<T> {
+        fun <T> fail(errorCode: Int, msg: String?, data: T? = null): Resource<T> {
             return Resource(FAIL, data, errorCode, msg)
         }
 
