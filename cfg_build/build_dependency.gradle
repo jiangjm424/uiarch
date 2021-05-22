@@ -233,6 +233,7 @@ deps.androidx_ktx_fragment = "androidx.fragment:fragment-ktx:1.3.3"
 deps.androidx_fragment = "androidx.fragment:fragment:1.3.3"
 deps.android_auto_size = 'me.jessyan:autosize:1.2.1'
 deps.netstatusmanager = 'com.github.D10NGYANG:NetStatusManager:1.3'
+deps.gsyVideoPlayer = 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer:v8.1.3-jitpack'
 
 ext.common_sys_dependencies = [
         deps.support.app_compat,
