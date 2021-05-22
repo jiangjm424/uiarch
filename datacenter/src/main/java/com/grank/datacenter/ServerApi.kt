@@ -19,5 +19,5 @@ interface ServerApi {
     suspend fun getState(@Body req: GetStateReq=GetStateReq(1)): ApiResult<State>
 
     @POST("backapi/appupdate/appapi/appupdate/v1/application/newversion")
-    suspend fun checkNewVersion(@Body req:GetNewVersionReq):ApiResult<GetNewVersionResp>
+    suspend fun checkNewVersion(@Body req:GetNewVersionReq):ApiResult<Data>
 }

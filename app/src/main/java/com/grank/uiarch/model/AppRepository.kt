@@ -4,6 +4,7 @@ import androidx.lifecycle.liveData
 import com.grank.datacenter.MainDb
 import com.grank.datacenter.ServerApi
 import com.grank.datacenter.db.DemoEntity
+import com.grank.datacenter.model.Data
 import com.grank.datacenter.net.ApiResult
 import com.grank.datacenter.net.Resource
 import com.grank.datacenter.model.GetNewVersionReq
@@ -38,11 +39,11 @@ class AppRepository  @Inject constructor(
                 emit(Resource.success(dd))
             }
             is ApiResult.Fail -> {
-                emit(Resource.fail(result.errorNumber, result.errorMessage, result.getRealData()))
+                emit(Resource.fail(result.errorCode, result.errorMessage, result.getRealData()))
             }
         }
     }
-    fun checkNewVersion() = liveData<Resource<GetNewVersionResp>> {
+    fun checkNewVersion() = liveData<Resource<Data>> {
         emit(Resource.loading())   //开始请求网络时，这里将请求状态置加载中，这样在UI中可以根据这个值来显示加载中的UI
         val result = serverApi.checkNewVersion(GetNewVersionReq().apply {
             applicationPackage = "com.fcb.bao.consumer"
@@ -57,7 +58,7 @@ class AppRepository  @Inject constructor(
                 emit(Resource.success(dd))
             }
             is ApiResult.Fail -> {
-                emit(Resource.fail(result.errorNumber, result.errorMessage, result.getRealData()))
+                emit(Resource.fail(result.errorCode, result.errorMessage, result.getRealData()))
             }
         }
     }

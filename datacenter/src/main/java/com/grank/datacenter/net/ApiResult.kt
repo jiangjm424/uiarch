@@ -32,8 +32,8 @@ abstract class ApiResult<T> {
     companion object {
 
         internal fun <T> parse(
-                response: Response<T>,
-                hasRealData: Boolean
+            response: Response<CommonResponse<T>>,
+            hasRealData: Boolean
         ): ApiResult<T>? {
             if (!response.isSuccessful) {
                 val msg = response.errorBody()?.string()
@@ -47,16 +47,18 @@ abstract class ApiResult<T> {
                 }"
                 return Fail(HTTP_ERROR, errorMessage, response.code())
             }
-            val commonResponse: T =
-                    response.body() ?: return Fail(
-                            HTTP_ERROR,
-                            "empty response body",
-                            HttpURLConnection.HTTP_NO_CONTENT,
-                    )
-
-            if (!hasRealData) {
-                return Success(commonResponse)
+            val commonResponse: CommonResponse<T> =
+                response.body() ?: return Fail(
+                    HTTP_ERROR,
+                    "empty response body error ",
+                    HttpURLConnection.HTTP_NO_CONTENT,
+                )
+            if ("000000" != commonResponse.code) {
+                val errorMessage =
+                    "RC error code : ${commonResponse.code} not 000000 error msg: ${commonResponse.message}"
+                return Fail(RC_ERROR, errorMessage, 0, commonResponse.code?:"", commonResponse)
             }
+
 
             return Success(commonResponse)
         }
@@ -67,14 +69,14 @@ abstract class ApiResult<T> {
         }
     }
 
-    class Success<T>(private val commonResponse: T) : ApiResult<T>() {
+    class Success<T>(private val commonResponse: CommonResponse<T>) : ApiResult<T>() {
 
-        fun getCommonResponse(): T? {
+        fun getCommonResponse(): CommonResponse<T>? {
             return commonResponse
         }
 
         fun getRealData(): T {
-            return commonResponse
+            return commonResponse.data
         }
 
         override fun needRetry(): Boolean {
@@ -113,18 +115,19 @@ abstract class ApiResult<T> {
     }
 
     class Fail<T>(
-            val failType: @FAIL_TYPE Int,
-            val errorMessage: String,
-            val errorNumber: Int = 0, // 和 FailType 对应的具体错误号
-            private val commonResponse: T? = null
+        val failType: @FAIL_TYPE Int,
+        val errorMessage: String,
+        private val errorNumber: Int = 0, // 和 FailType 对应的具体错误号
+        val errorCode: String = "",
+        private val commonResponse: CommonResponse<T>? = null
     ) : ApiResult<T>() {
 
-        fun getCommonResponse(): T? {
+        fun getCommonResponse(): CommonResponse<T>? {
             return commonResponse
         }
 
         fun getRealData(): T? {
-            return commonResponse
+            return commonResponse?.data
         }
 
         override fun needRetry(): Boolean {
@@ -144,6 +147,7 @@ abstract class ApiResult<T> {
             sb.append("Api Result Fail(")
             sb.append("failType=").append(failType).append(",")
             sb.append("errorNumber=").append(errorNumber).append(",")
+            sb.append("errorCode=").append(errorCode).append(",")
             sb.append("errorMessage=").append(errorMessage).append("")
             sb.append(")")
             return sb.toString()
@@ -153,7 +157,7 @@ abstract class ApiResult<T> {
             val sb = StringBuilder()
             sb.append("ApiResult Fail(")
             sb.append("failType=").append(failType).append(",")
-            sb.append("errorNumber=").append(failType).append("")
+            sb.append("errorCode=").append(errorCode).append("")
             sb.append(")\n")
             sb.append(errorMessage)
             Log.e("OkHttp2", sb.toString())

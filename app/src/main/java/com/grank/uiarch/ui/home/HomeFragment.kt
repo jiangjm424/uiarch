@@ -49,13 +49,17 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
                 .setAction("Action", null).show()
             hiltTest.print()
             selfDi.pp()
-            homeViewModel.getState()
-            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
+//            homeViewModel.getState()
+            homeViewModel.checkNewVersion()
+//            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
         }
     }
 
     override fun setupData(binding: FragmentHomeBinding, lifecycleOwner: LifecycleOwner) {
 
+        homeViewModel.newAppVersion.observe(viewLifecycleOwner) {
+            Log.i(it.toString())
+        }
         homeViewModel.text.observe(this) {
             if (it.status == Resource.Status.SUCCESS) {
                 Log.v("sucess:${it.data?.cstateno}")

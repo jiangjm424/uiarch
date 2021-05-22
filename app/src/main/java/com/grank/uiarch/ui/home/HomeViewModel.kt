@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.grank.datacenter.db.DemoEntity
+import com.grank.datacenter.model.Data
 import com.grank.datacenter.net.Resource
 import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
@@ -35,7 +36,7 @@ class HomeViewModel
         }
     }
 
-    private val _newAppVersion = MediatorLiveData<Resource<GetNewVersionResp>>()
+    private val _newAppVersion = MediatorLiveData<Resource<Data>>()
     val newAppVersion = Transformations.map(_newAppVersion) {
         it
     }
