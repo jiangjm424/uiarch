@@ -6,6 +6,10 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.databinding.BindingAdapter
+import com.grank.uicommon.coroutine.ViewCoroutineScope
+import com.grank.uicommon.coroutine.ViewCoroutineScopeImp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 const val TO_VISIBLE = 1
 const val TO_GONE = 0
@@ -54,6 +58,14 @@ var View.visible
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+/**
+ * 为每一个view添加一个协程，可以用来启动协程做一些操作。如有需要记得在View.onDetachedFromWindow
+ * 时取消协程
+ */
+val View.viewScope: ViewCoroutineScope by lazy {
+    ViewCoroutineScopeImp(SupervisorJob() + Dispatchers.Main.immediate)
+}
 /**
  * 注册防重点击事件
  */

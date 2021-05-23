@@ -25,7 +25,7 @@ const val TEN_MM = 100000000.0 //亿
 const val HD_MM = 1000000000.0 //十亿
 const val DAY: Long = 24 * 60 * 60 * 1000 // 86400000
 const val MONTH: Long = 30 * DAY           //2592000000
-const val YEAR = MONTH * 12;
+const val YEAR = MONTH * 12
 
 /**
  * 时间戳转日期字符串 mm月dd日
