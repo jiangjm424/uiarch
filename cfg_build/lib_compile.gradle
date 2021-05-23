@@ -31,6 +31,9 @@ dependencies {
     implementation lifecycle_dependencies
     implementation kotlin_dependencies
 
+    //auto size
+    implementation deps.android_auto_size
+
     //test
     testImplementation deps.junit
     androidTestImplementation deps.test_ext_junit
