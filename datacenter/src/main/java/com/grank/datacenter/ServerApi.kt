@@ -20,4 +20,7 @@ interface ServerApi {
 
     @POST("backapi/appupdate/appapi/appupdate/v1/application/newversion")
     suspend fun checkNewVersion(@Body req:GetNewVersionReq):ApiResult<Data>
+
+    @POST("backapi/gethomepage")
+    suspend fun gethomepage():ApiResult<TopPage>
 }

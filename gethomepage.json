@@ -1,0 +1,31 @@
+{
+  "message": "",
+  "code": "000000",
+  "data": {
+    "cardsData": [
+      {
+        "title": "人气之选",
+        "cardId": 2,
+        "data": {
+          "iconUrl0": "https://img.zcool.cn/community/013de756fb63036ac7257948747896.jpg",
+          "iconUrl1": "https://img.zcool.cn/community/01639a56fb62ff6ac725794891960d.jpg",
+          "iconUrl2": "https://img.zcool.cn/community/01270156fb62fd6ac72579485aa893.jpg",
+          "iconUrl3": "https://img.zcool.cn/community/01233056fb62fe32f875a9447400e1.jpg",
+          "iconUrl4": "https://img.zcool.cn/community/016a2256fb63006ac7257948f83349.jpg"
+        },
+        "cardType": 50001
+      },
+      {
+        "title": "和她一起拯救世界",
+        "cardId": 789,
+        "cardType": 1,
+        "data": {
+          "editorIntro0": "CAPCOM正版授权街霸手游",
+          "editorIntro1": "CAPCOM正版授权街霸手游",
+          "editorIntro2": "CAPCOM正版授权街霸手游",
+          "editorIntro3": "CAPCOM正版授权街霸手游"
+        }
+      }
+    ]
+  }
+}

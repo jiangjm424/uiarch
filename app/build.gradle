@@ -26,6 +26,7 @@ dependencies {
     implementation project(':datacenter')
     implementation project(path: ':uicommon')
     implementation project(path: ':routercontroller')
+    implementation project(path: ':smartadapter')
 
     //hilt
     implementation deps.hilt.android

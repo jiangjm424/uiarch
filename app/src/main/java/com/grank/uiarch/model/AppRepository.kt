@@ -43,6 +43,19 @@ class AppRepository  @Inject constructor(
             }
         }
     }
+    fun gettoppage()= liveData {
+        emit(Resource.loading())
+        val result = serverApi.gethomepage()
+        result.log()
+        when(result) {
+            is ApiResult.Success -> {
+                emit(Resource.success(result.getRealData()))
+            }
+            is ApiResult.Fail -> {
+                emit(Resource.fail(result.errorNumber,result.errorMessage,result.getRealData()))
+            }
+        }
+    }
     fun checkNewVersion() = liveData<Resource<Data>> {
         emit(Resource.loading())   //开始请求网络时，这里将请求状态置加载中，这样在UI中可以根据这个值来显示加载中的UI
         val result = serverApi.checkNewVersion(GetNewVersionReq().apply {

@@ -23,7 +23,6 @@ abstract class BindingSpanAdapterDelegate<T> : SpanAdapterDelegate<T, BindingVie
     @get:LayoutRes
     abstract val layoutRes: Int
 
-    constructor()
 
     constructor(tag: String) : super(tag)
 
@@ -39,7 +38,7 @@ abstract class BindingSpanAdapterDelegate<T> : SpanAdapterDelegate<T, BindingVie
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int, item: T) {
-        super.onBindViewHolder(holder, position, item)
+//        super.onBindViewHolder(holder, position, item)
         if (item is SmartCardData) {
             @Suppress("UNCHECKED_CAST")
             setVariable(holder.getBinding(), item.data as T, position)

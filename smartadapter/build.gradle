@@ -14,3 +14,6 @@ android {
         dataBinding = true
     }
 }
+dependencies {
+    api deps.kotson
+}

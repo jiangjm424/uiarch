@@ -14,7 +14,6 @@ abstract class SpanAdapterDelegate<T, VH : RecyclerView.ViewHolder> :
 
     open var spanSize: Int = 1
 
-    constructor()
 
     constructor(tag: String) : super(tag)
 

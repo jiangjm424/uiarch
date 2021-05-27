@@ -18,9 +18,8 @@ import com.grank.smartadapter.vh.BindingViewHolder
  * -----------------------------------------------------------------
  */
 
-abstract class BindingAdapterDelegate<T> : CardAdapterDelegate<T, BindingViewHolder> {
+abstract class BindingAdapterDelegate<T, BD:ViewDataBinding> : CardAdapterDelegate<T, BindingViewHolder> {
 
-    constructor()
 
     constructor(tag: String) : super(tag)
 
@@ -106,10 +105,10 @@ abstract class BindingAdapterDelegate<T> : CardAdapterDelegate<T, BindingViewHol
     /**
      * 设置ViewHolder
      */
-    open fun configureViewHolder(holder: BindingViewHolder, lifecycleOwner: LifecycleOwner) {}
+    abstract fun configureViewHolder(holder: BindingViewHolder, lifecycleOwner: LifecycleOwner)
 
     /**
      * 更新数据
      */
-    abstract fun setVariable(binding: ViewDataBinding, item: T, position: Int)
+    abstract fun setVariable(binding: BD, item: T, position: Int)
 }

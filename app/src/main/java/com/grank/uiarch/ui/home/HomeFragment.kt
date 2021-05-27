@@ -51,13 +51,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             hiltTest.print()
             selfDi.pp()
 //            homeViewModel.getState()
-            homeViewModel.checkNewVersion()
-            viewLifecycleScope.launch {
-
-                homeViewModel.f.collect {
-Log.i("jiang","it :$it")
-                }
-            }
+            homeViewModel.gettoppage()
 //            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
         }
     }
@@ -72,6 +66,9 @@ Log.i("jiang","it :$it")
                 Log.v("sucess:${it.data?.cstateno}")
             }
             Log.v("res:$it")
+        }
+        homeViewModel.toppage.observe(viewLifecycleOwner) {
+            Log.i("jiang","$it")
         }
         lifecycleScope.launchWhenCreated {
 

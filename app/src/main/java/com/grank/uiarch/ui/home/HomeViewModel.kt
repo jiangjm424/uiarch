@@ -3,12 +3,14 @@ package com.grank.uiarch.ui.home
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.google.gson.Gson
 import com.grank.datacenter.db.DemoEntity
 import com.grank.datacenter.model.Data
 import com.grank.datacenter.net.Resource
-import com.grank.datacenter.model.GetNewVersionResp
 import com.grank.datacenter.model.State
+import com.grank.datacenter.model.TopPage
 import com.grank.logger.Log
+import com.grank.smartadapter.SmartCardData
 import com.grank.uiarch.model.AppRepository
 import com.grank.uicommon.ui.base.BaseViewModel
 import dagger.hilt.android.scopes.FragmentScoped
@@ -42,7 +44,33 @@ class HomeViewModel
     val newAppVersion = Transformations.map(_newAppVersion) {
         it
     }
+    private val _toppage = MediatorLiveData<Resource<TopPage>>()
+    val toppage = Transformations.map(_toppage) {
+        if (Resource.Status.SUCCESS == it.status) {
+            Resource.success(pageToCard(it.data))
+        }else{
+            Resource.fail(it.errorCode,it.message,null)
+        }
+    }
+    private fun pageToCard(topPage: TopPage?):MutableList<SmartCardData> {
+        val cards = mutableListOf<SmartCardData>()
+        topPage?.let {
+            it.cardsData.forEach { card->
+                cards.add(SmartCardData(Gson().toJson(card.data), cardId = card.cardId.toString(), cardTitle = card.title,tag = card.cardType.toString()))
+            }
+        }
+        return cards
+    }
+    fun gettoppage() {
+        val s = appRepository.gettoppage()
+        _toppage.addSource(s) {
+            _toppage.value = it
+            if (it.status != Resource.Status.LOADING) {  //加载完成了，则这个数据源已经不用再次监听了
+                _toppage.removeSource(s)
+            }
+        }
 
+    }
     fun checkNewVersion() {
         val source = appRepository.checkNewVersion()
         _newAppVersion.addSource(source) {

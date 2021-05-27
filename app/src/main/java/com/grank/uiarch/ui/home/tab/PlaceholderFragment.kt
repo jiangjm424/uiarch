@@ -4,11 +4,16 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.grank.logger.Log
+import com.grank.smartadapter.adapter.SmartAdapter
 import com.grank.uiarch.R
+import com.grank.uiarch.card.Card_delegate_1
+import com.grank.uiarch.card.Card_delegate_2
 import com.grank.uiarch.databinding.FragmentTabCommonBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
+import com.grank.uiarch.ui.home.HomeViewModel
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,18 +24,29 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
 
+    private lateinit var adapter: SmartAdapter
     @Inject lateinit var hiltTest: HiltTest
 
     @Inject lateinit var selfDi: SelfDi
 
     private val pageViewModel: PageViewModel by viewModels<PageViewModel>()
 
+    private val homeviewmodel:HomeViewModel by viewModels( {  requireParentFragment()})
 
     override val layoutRes: Int
         get() = R.layout.fragment_tab_common
 
     override fun setupView(binding: FragmentTabCommonBinding) {
         pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+        adapter = SmartAdapter(viewLifecycleOwner).apply {
+            addDelegate(Card_delegate_1(),"1")
+            addDelegate(Card_delegate_2(),"50001")
+        }
+        binding.sectionLabel.setOnClickListener {
+            homeviewmodel.gettoppage()
+        }
+        binding.rv.adapter = adapter
     }
 
     override fun onPageFirstComing() {
@@ -43,6 +59,11 @@ class PlaceholderFragment : AbsDataBindingFragment<FragmentTabCommonBinding>() {
         }
         hiltTest.print()
         selfDi.pp()
+        homeviewmodel.toppage.observe(viewLifecycleOwner) {
+            if (it.status == com.grank.datacenter.net.Resource.Status.SUCCESS) {
+                 adapter.setDataItems(it.data!!)
+            }
+        }
     }
     companion object {
         /**

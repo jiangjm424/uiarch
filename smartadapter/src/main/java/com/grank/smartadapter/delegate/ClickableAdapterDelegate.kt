@@ -14,7 +14,6 @@ import com.grank.smartadapter.SmartCardData
 abstract class ClickableAdapterDelegate<T, VH : RecyclerView.ViewHolder> :
     CardAdapterDelegate<T, VH> {
 
-    constructor()
 
     constructor(tag: String) : super(tag)
 

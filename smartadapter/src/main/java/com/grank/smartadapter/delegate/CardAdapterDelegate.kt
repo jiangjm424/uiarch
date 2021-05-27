@@ -15,7 +15,6 @@ abstract class CardAdapterDelegate<T, VH : RecyclerView.ViewHolder> {
 
     var tag = DEFAULT_TAG
     var viewSource: String = ""
-    constructor()
 
     constructor(tag: String) {
         if (tag.isEmpty()) {
