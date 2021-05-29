@@ -13,6 +13,7 @@ import com.grank.datacenter.net.NetStateManager
 import com.grank.datacenter.net.VendorPlatform
 import com.grank.uiarch.BuildConfig
 import com.grank.uiarch.testdi.HiltTest
+import com.grank.uicommon.ui.GToast
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object AppComponent {
+
+    @Provides
+    @Singleton
+    fun provideGToast(context: Application): GToast {
+        return GToast(context)
+    }
 
     @Singleton
     @Provides

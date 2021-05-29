@@ -27,9 +27,9 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     )
     private val fragments = arrayOf(
         PlaceholderFragment.newInstance(1),
-        PlaceholderFragment.newInstance(2),
-        PlaceholderFragment.newInstance(3),
-        PlaceholderFragment.newInstance(4),
+//        PlaceholderFragment.newInstance(2),
+//        PlaceholderFragment.newInstance(3),
+//        PlaceholderFragment.newInstance(4),
         TabWebFragment()
     )
     override fun getItem(position: Int): Fragment {

@@ -124,8 +124,7 @@ fun ImageView.loadRoundAppIcon(packageName: String?, roundRadius: Float) {
 
 
 fun ImageView.loadImage(
-    context: Context,
-    url: String?,
+    url: String,
     option: ImageOption?=null,
     listener: RequestListener<Drawable>?=null
 ) {
@@ -152,8 +151,7 @@ fun ImageView.loadLocalImage(
 }
 
 fun ImageView.loadCircle(
-    context: Context,
-    url: String?,
+    url: String,
     option: ImageOption?=null
 ) {
 
@@ -172,7 +170,6 @@ fun ImageView.loadCircle(
  * 本地图片加载成圆形
  */
 fun ImageView.loadLocalCircle(
-    context: Context,
     drawable: Int,
     option: ImageOption?=null
 ) {
@@ -190,8 +187,7 @@ fun ImageView.loadLocalCircle(
  * 加载圆形图片时，多加一个圆形外边框，外边框的宽度和颜色可以设置
  */
 fun ImageView.loadCircleBorder(
-    context: Context,
-    url: String?,
+    url: String,
     option: ImageOption?,
     borderWidth: Int,
     borderColor: Int
@@ -217,8 +213,7 @@ fun ImageView.loadCircleBorder(
  * 加载圆角图片，可以设置任意圆角,默认四个圆角
  */
 fun ImageView.loadRoundedCorner(
-    context: Context,
-    url: String?,
+    url: String,
     radius: Int,
     margin: Int,
     cornerType: RoundedCornersTransformation.CornerType=RoundedCornersTransformation.CornerType.ALL,
@@ -241,8 +236,7 @@ fun ImageView.loadRoundedCorner(
  * 高斯模糊：网络图片，模糊半径可以设置
  */
 fun ImageView.loadBlur(
-    context: Context,
-    url: String?,
+    url: String,
     radius: Int,
     sampling: Int,
     imageOption: ImageOption?
@@ -264,7 +258,6 @@ fun ImageView.loadBlur(
  * 高斯模糊：本地图片，模糊半径可以设置
  */
 fun ImageView.loadBlur(
-    context: Context,
     drawableId: Int,
     radius: Int,
     sampling: Int,
@@ -298,7 +291,6 @@ fun ImageView.loadGlowBgAppIcon(
     glowRadius: Float
 ) {
     if (packageName != null) {
-        val context = context
         val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
         val uri = Uri.Builder()
             .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)

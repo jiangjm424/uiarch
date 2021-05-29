@@ -13,6 +13,7 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
+import com.grank.uicommon.ui.GToast
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -52,10 +53,13 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             selfDi.pp()
 //            homeViewModel.getState()
             homeViewModel.gettoppage()
+            gToast.show("kwkwkwkwkwkw")
 //            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
         }
     }
 
+    @Inject
+    lateinit var gToast:GToast
     override fun setupData(binding: FragmentHomeBinding, lifecycleOwner: LifecycleOwner) {
 
         homeViewModel.newAppVersion.observe(viewLifecycleOwner) {

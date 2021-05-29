@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="common_font">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="T26_Regular" parent="common_font">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="T26_Regular_Bold" parent="T26_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T24_Regular" parent="common_font">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="T24_Regular_Bold" parent="T24_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T21_Regular" parent="common_font">
+        <item name="android:textSize">21sp</item>
+    </style>
+
+    <style name="T21_Regular_Bold" parent="T21_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T20_Regular" parent="common_font">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="T20_Regular_Bold" parent="T20_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T18_Regular" parent="common_font">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="T18_Regular_Bold" parent="T18_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T17_Regular" parent="common_font">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="T17_Regular_Bold" parent="T17_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T16_Regular" parent="common_font">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="T16_Regular_Bold" parent="T16_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T15_Regular" parent="common_font">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="T15_Regular_Bold" parent="T15_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T14_Regular" parent="common_font">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="T14_Regular_Bold" parent="T14_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T13_Regular" parent="common_font">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="T13_Regular_Bold" parent="T13_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T12_Regular" parent="common_font">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="T12_Regular_Bold" parent="T12_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T11_Regular" parent="common_font">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="T11_Regular_Bold" parent="T11_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T10_Regular" parent="common_font">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="T10_Regular_Bold" parent="T10_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="T36_Regular" parent="common_font">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="T36_Regular_Bold" parent="T36_Regular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText2" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+    </style>
+
+
+</resources>

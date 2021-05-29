@@ -20,6 +20,9 @@ import java.util.*
  */
 class AdapterManager {
 
+    companion object {
+        private const val TAG = "AdapterManager"
+    }
     private val dataTypeAndTags = SparseArray<String>()
     private val delegates = SparseArrayCompat<CardAdapterDelegate<Any, RecyclerView.ViewHolder>>()
     var backDelegate: CardAdapterDelegate<Any, RecyclerView.ViewHolder>? =
@@ -43,7 +46,7 @@ class AdapterManager {
             dataTypeAndTags.put(viewType, typeWithTag)
 
         } catch (e: Exception) {
-            Log.e("AdapterManager", "add delegate", e)
+            Log.e(TAG, "add delegate", e)
             // 没有泛型或者泛型不正确.
             throw IllegalArgumentException("Please set the correct generic parameters on ${delegate.javaClass.name}.")
         }
@@ -103,7 +106,7 @@ class AdapterManager {
 
         // 如果没有为数据类型添加AdapterDelegate，则返回最大的视图类型 + 1.
         if (backDelegate != null) {
-            Log.w("AdapterManager", "can not find delegate for $typeWithTag")
+            Log.e(TAG, "can not find delegate for $typeWithTag")
             return delegates.size()
         }
 
