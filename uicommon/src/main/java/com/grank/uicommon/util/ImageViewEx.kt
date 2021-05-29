@@ -12,7 +12,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.grank.uicommon.glidex.*
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -24,7 +23,7 @@ import kotlin.math.roundToInt
  */
 @BindingAdapter(value = ["imageUrl", "placeHolder", "errorImage", "circleCrop"], requireAll = false)
 fun ImageView.loadImage(
-    url: String?,
+    url: String,
     holderDrawable: Drawable?=null,
     errorDrawable: Drawable?=null,
     circleCrop: Boolean = false
@@ -49,7 +48,32 @@ fun ImageView.loadImage(
         GlideApp.with(context).clear(this)
     }
 }
-
+fun ImageView.loadImage(
+    drawable: Int,
+    holderDrawable: Drawable?=null,
+    errorDrawable: Drawable?=null,
+    circleCrop: Boolean = false
+) {
+    if (drawable != null) {
+        when {
+            circleCrop -> GlideApp.with(context)
+                .load(drawable)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()).placeholder(holderDrawable).error(errorDrawable))
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(this)
+            else -> {
+                GlideApp.with(context)
+                    .load(drawable)
+                    .apply(RequestOptions().placeholder(holderDrawable).error(errorDrawable))
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(this)
+            }
+        }
+    } else {
+        setImageDrawable(null)
+        GlideApp.with(context).clear(this)
+    }
+}
 
 @BindingAdapter(value = ["packageName", "circle"], requireAll = false)
 fun ImageView.loadAppIcon(packageName: String?, circle: Boolean = false) {
@@ -121,35 +145,6 @@ fun ImageView.loadRoundAppIcon(packageName: String?, roundRadius: Float) {
     }
 }
 
-
-
-fun ImageView.loadImage(
-    url: String,
-    option: ImageOption?=null,
-    listener: RequestListener<Drawable>?=null
-) {
-    GlideApp.with(context)
-        .load(url)
-        .listener(listener)
-        .placeholder(dealPlaceHolder(context, option))
-        .error(dealErrorHolder(context, option))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(this)
-}
-
-
-fun ImageView.loadLocalImage(
-    drawable: Int,
-    option: ImageOption?=null
-) {
-    GlideApp.with(context)
-        .load(drawable)
-        .placeholder(dealPlaceHolder(context, option))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .error(dealErrorHolder(context, option))
-        .into(this)
-}
-
 fun ImageView.loadCircle(
     url: String,
     option: ImageOption?=null
@@ -169,7 +164,7 @@ fun ImageView.loadCircle(
 /**
  * 本地图片加载成圆形
  */
-fun ImageView.loadLocalCircle(
+fun ImageView.loadCircle(
     drawable: Int,
     option: ImageOption?=null
 ) {
