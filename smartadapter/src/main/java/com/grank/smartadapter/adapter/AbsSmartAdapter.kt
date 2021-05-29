@@ -21,9 +21,9 @@ abstract class AbsSmartAdapter constructor(
 
 
     @JvmOverloads
-    fun addDelegate(delegate: CardAdapterDelegate<*, *>, tag: String = delegate.tag) {
-        delegate.tag = tag
-        adapterManager.addDelegate(delegate, tag)
+    fun addDelegate(delegate: CardAdapterDelegate<*, *>, cardType: String) {
+        delegate.cardType = cardType
+        adapterManager.addDelegate(delegate, cardType)
     }
 
     fun setFallbackDelegate(delegate: CardAdapterDelegate<*, *>) {

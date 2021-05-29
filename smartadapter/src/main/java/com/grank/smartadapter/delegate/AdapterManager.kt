@@ -30,11 +30,11 @@ class AdapterManager {
      * 将delegate中的数据类型，按照delegate存入序号 对应存入dataTypeWithTags中
      * @param delegate
      */
-    fun addDelegate(delegate: CardAdapterDelegate<*, *>, tag: String): AdapterManager {
+    fun addDelegate(delegate: CardAdapterDelegate<*, *>, cardType: String): AdapterManager {
         val superclass = delegate.javaClass.genericSuperclass
         try {
             val clazz = (superclass as ParameterizedType).actualTypeArguments[0] as Type    // 从抽象类取出delegate真实的类
-            val typeWithTag = type2WithTag(clazz, tag)       // delegate对象是否有tag 没有就用类名做Tag
+            val typeWithTag = type2WithTag(clazz, cardType)       // delegate对象是否有tag 没有就用类名做Tag
             val viewType = delegates.size()
             // 保存委托到集合;
             @Suppress("UNCHECKED_CAST")
@@ -96,7 +96,7 @@ class AdapterManager {
         val indexList = indexesOfValue(dataTypeAndTags, typeWithTag)
         indexList.forEach {
             val delegate = delegates.valueAt(it)
-            if (delegate?.tag == tag && delegate.isForViewType(item, position)) {
+            if (delegate?.cardType == tag && delegate.isForViewType(item, position)) {
                 return it
             }
         }
@@ -212,7 +212,7 @@ class AdapterManager {
     }
 
     private val targetTag = { data: Any ->
-        if (data is SmartCardData) data.tag else CardAdapterDelegate.DEFAULT_TAG
+        if (data is SmartCardData) data.cardType else CardAdapterDelegate.DEFAULT_TYPE
     }
 
     /**

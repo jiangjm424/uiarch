@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class CardAdapterDelegate<T, VH : RecyclerView.ViewHolder> {
 
-    var tag = DEFAULT_TAG
+    var cardType = DEFAULT_TYPE
     var viewSource: String = ""
 
     constructor(tag: String) {
         if (tag.isEmpty()) {
             throw NullPointerException("The tag of ${javaClass.name} is null.")
         }
-        this.tag = tag
+        this.cardType = tag
     }
 
     open fun isForViewType(item: T, position: Int) = true
@@ -62,6 +62,6 @@ abstract class CardAdapterDelegate<T, VH : RecyclerView.ViewHolder> {
     open fun onDestroy() {}
 
     companion object {
-        const val DEFAULT_TAG = ""
+        const val DEFAULT_TYPE = ""
     }
 }

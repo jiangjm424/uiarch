@@ -74,7 +74,7 @@ abstract class BindingAdapterDelegate<T, BD:ViewDataBinding> : CardAdapterDelega
                 source = source.substring(index + 1)
             }
             cardShowed(
-                tag,
+                cardType,
                 source,
                 holder.cardId,
                 holder.adapterPosition.toString(),
@@ -82,7 +82,7 @@ abstract class BindingAdapterDelegate<T, BD:ViewDataBinding> : CardAdapterDelega
             )
         } else {
             cardShowed(
-                tag,
+                cardType,
                 viewSource,
                 holder?.cardId!!,
                 holder.adapterPosition.toString(),

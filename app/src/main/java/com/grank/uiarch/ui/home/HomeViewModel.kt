@@ -56,7 +56,7 @@ class HomeViewModel
         val cards = mutableListOf<SmartCardData>()
         topPage?.let {
             it.cardsData.forEach { card->
-                cards.add(SmartCardData(Gson().toJson(card.data), cardId = card.cardId.toString(), cardTitle = card.title,tag = card.cardType.toString()))
+                cards.add(SmartCardData(Gson().toJson(card.data), cardId = card.cardId.toString(), cardTitle = card.title,cardType = card.cardType.toString()))
             }
         }
         return cards
