@@ -1,5 +1,6 @@
 package com.grank.uicommon.util
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
@@ -8,8 +9,10 @@ import android.view.animation.TranslateAnimation
 import androidx.databinding.BindingAdapter
 import com.grank.uicommon.coroutine.ViewCoroutineScope
 import com.grank.uicommon.coroutine.ViewCoroutineScopeImp
+import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import java.util.concurrent.TimeUnit
 
 const val TO_VISIBLE = 1
 const val TO_GONE = 0
@@ -69,11 +72,11 @@ val View.viewScope: ViewCoroutineScope by lazy {
 /**
  * 注册防重点击事件
  */
-//@SuppressLint("CheckResult")
-//fun View.avoidDoubleClick(block: () -> (Unit)) {
-//    RxView.clicks(this)
-//        .throttleFirst(500, TimeUnit.MILLISECONDS)
-//        .subscribe {
-//            block.invoke()
-//        }
-//}
+@SuppressLint("CheckResult")
+fun View.avoidDoubleClick(block: () -> (Unit)) {
+    RxView.clicks(this)
+        .throttleFirst(500, TimeUnit.MILLISECONDS)
+        .subscribe {
+            block.invoke()
+        }
+}

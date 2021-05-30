@@ -31,4 +31,5 @@ dependencies {
     api deps.lottie
     api deps.banner
     api deps.cardslideview
+    api rxjava2_dependencies
 }
