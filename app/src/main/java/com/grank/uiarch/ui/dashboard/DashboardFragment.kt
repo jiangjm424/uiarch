@@ -15,7 +15,9 @@ import com.grank.uiarch.databinding.DashItemBinding
 import com.grank.uiarch.databinding.FragmentDashboardBinding
 import com.grank.uiarch.testvo.DemoItemImageText
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : AbsDataBindingFragment<FragmentDashboardBinding>() {
 
     private val dashboardViewModel: DashboardViewModel by viewModels()

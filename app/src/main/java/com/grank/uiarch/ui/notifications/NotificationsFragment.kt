@@ -6,7 +6,9 @@ import androidx.lifecycle.Observer
 import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentNotificationsBinding
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotificationsFragment : AbsDataBindingFragment<FragmentNotificationsBinding>() {
 
     private val notificationsViewModel: NotificationsViewModel by viewModels()
