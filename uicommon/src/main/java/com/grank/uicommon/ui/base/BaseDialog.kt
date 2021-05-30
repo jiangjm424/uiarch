@@ -23,6 +23,7 @@ class DialogBuildParam(
     val paddingTop: Int = 0,
     val paddingBottom: Int = 0,
     val fullScreen: Boolean = false,
+    val windowAnimator: Int?=null,
     val dialogBackground: Drawable? = null
 )
 
@@ -75,6 +76,10 @@ abstract class BaseDialog(
 //                it.systemUiVisibility = StatusBarHelper.getFullscreenSystemUIVisibility()
             }
         }
+        dialogBuildParam.windowAnimator?.let {
+            window?.setWindowAnimations(it)
+        }
+
         val params = window?.attributes
         params?.width = dialogBuildParam.width
         params?.height = dialogBuildParam.height
