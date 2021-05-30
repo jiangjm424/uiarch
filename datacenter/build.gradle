@@ -24,4 +24,7 @@ dependencies {
     api deps.room.runtime
     api deps.room.ktx
     kapt deps.room.compiler
+
+    //data store
+    api deps.datastore
 }
