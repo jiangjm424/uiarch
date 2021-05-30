@@ -23,7 +23,7 @@ class Card_Delegate_default : BindingAdapterDelegate<String,CardDefaultBinding>(
 
     }
 
-    override fun setVariable(binding: CardDefaultBinding, item: String, position: Int) {
+    override fun setVariable(binding: CardDefaultBinding, item: String, position: Int,lifecycleOwner: LifecycleOwner) {
     }
 
 }

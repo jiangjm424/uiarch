@@ -1,6 +1,10 @@
 package com.grank.uiarch.ui.home
 
 import android.app.Application
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.preferencesKey
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.gson.Gson
@@ -13,19 +17,25 @@ import com.grank.logger.Log
 import com.grank.smartadapter.SmartCardData
 import com.grank.uiarch.model.AppRepository
 import com.grank.uicommon.ui.base.BaseViewModel
+import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.android.scopes.FragmentScoped
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-@FragmentScoped
+@ActivityScoped
 class HomeViewModel
 @ViewModelInject constructor(
     application: Application,
+    private val dataStore: DataStore<Preferences>,
     private val appRepository: AppRepository
 ) : BaseViewModel(application) {
 
+    init {
+        Log.i("jiang","homview :$this")
+    }
     //这里面监听数据根据实际情况，如果只要关注加载中，成功或者失败，则这里面监听的类型是Resource<State>
     //如果只是关心实际数据，则我们可以监听实际数据即可
     private val _state = MediatorLiveData<Resource<State>>()
@@ -94,4 +104,17 @@ class HomeViewModel
         emit(1)
     }
     val f = flowOf(1)
+
+    private val key = preferencesKey<String>("first_key")
+    fun getvv()
+    {
+        viewModelScope.launch {
+            dataStore.edit {
+                it[key] = "aa"
+            }
+        }
+    }
+    fun geta()  = dataStore.data.map {
+        it.get(key)
+    }
 }

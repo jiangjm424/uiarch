@@ -13,10 +13,12 @@ import com.grank.uiarch.R
 import com.grank.uiarch.databinding.FragmentHomeBinding
 import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
+import com.grank.uiarch.testdi.log
 import com.grank.uicommon.ui.GToast
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,11 +33,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
 
     override val layoutRes: Int = R.layout.fragment_home
 
-    private val homeViewModel: HomeViewModel by viewModels(
-        {
-            requireActivity()
-        }
-    )
+    private val homeViewModel: HomeViewModel by viewModels()
 
     var ii: Long = 0
     override fun setupView(binding: FragmentHomeBinding) {
@@ -50,11 +48,24 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             hiltTest.print()
+            hiltTest.log("action" +
+                    "cccc")
             selfDi.pp()
 //            homeViewModel.getState()
-            homeViewModel.gettoppage()
+//            homeViewModel.gettoppage()
             gToast.show("kwkwkwkwkwkw")
+            homeViewModel.getvv()
 //            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
+        }
+        binding.fab2.setOnClickListener {
+           val j= viewLifecycleScope.launch {
+                val bb = homeViewModel.geta().collect {
+                    Log.i("jiang","flow $it")
+                    it
+                }
+               val cc = homeViewModel.geta().first()
+
+            }
         }
     }
 

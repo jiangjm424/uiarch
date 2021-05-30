@@ -1,9 +1,10 @@
 package com.grank.smartadapter.adapter
 
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.grank.smartadapter.delegate.SpanAdapterDelegate
+import com.grank.smartadapter.delegate.BindingSpanAdapterDelegate
 
 
 /*
@@ -25,7 +26,7 @@ class SpanSmartAdapter(lifecycleOwner: LifecycleOwner) : SmartAdapter(lifecycleO
                 override fun getSpanSize(position: Int): Int {
                     val delegate = adapterManager.getDelegate(getItemViewType(position))
                     return if (null != delegate
-                            && delegate is SpanAdapterDelegate<Any, out RecyclerView.ViewHolder>
+                            && delegate is BindingSpanAdapterDelegate<Any, out ViewDataBinding>
                     ) {
                         delegate.spanSize
                     } else {

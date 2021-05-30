@@ -31,10 +31,10 @@ abstract class CardAdapterDelegate<T, VH : RecyclerView.ViewHolder> {
     abstract fun onCreateViewHolder(parent: ViewGroup, lifecycleOwner: LifecycleOwner): VH
 
 
-    abstract fun onBindViewHolder(holder: VH, position: Int, item: T)
+    abstract fun onBindViewHolder(holder: VH, position: Int, item: T,lifecycleOwner: LifecycleOwner)
 
 
-    open fun onBindViewHolder(holder: VH, position: Int, payloads: List<Any>?, item: T) {}
+    open fun onBindViewHolder(holder: VH, position: Int, payloads: List<Any>?, item: T,lifecycleOwner: LifecycleOwner) {}
 
 
     open fun onViewRecycled(holder: VH?) {}

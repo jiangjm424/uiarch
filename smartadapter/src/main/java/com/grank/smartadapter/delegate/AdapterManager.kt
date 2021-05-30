@@ -66,7 +66,7 @@ class AdapterManager {
             )
     }
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, item: Any) {
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, item: Any, lifecycleOwner: LifecycleOwner) {
         val viewType = holder.itemViewType
         val delegate = getDelegate(viewType)
             ?: throw NullPointerException(
@@ -75,14 +75,14 @@ class AdapterManager {
                         + " for viewType = "
                         + viewType
             )
-        delegate.onBindViewHolder(holder, position, item)
+        delegate.onBindViewHolder(holder, position, item,lifecycleOwner)
     }
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<Any>?, item: Any) {
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<Any>?, item: Any,lifecycleOwner: LifecycleOwner) {
         val viewType = holder.itemViewType
         val delegate = getDelegate(viewType)
             ?: throw NullPointerException("No delegate found for item at position = $position for viewType = $viewType")
-        delegate.onBindViewHolder(holder, position, payloads, item)
+        delegate.onBindViewHolder(holder, position, payloads, item,lifecycleOwner)
     }
 
     /**

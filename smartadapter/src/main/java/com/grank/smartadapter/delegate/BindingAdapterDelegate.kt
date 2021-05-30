@@ -52,15 +52,15 @@ abstract class BindingAdapterDelegate<T, BD:ViewDataBinding> : CardAdapterDelega
         return holder
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder, position: Int, item: T) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int, item: T,lifecycleOwner: LifecycleOwner) {
         if (item is SmartCardData) {
             @Suppress("UNCHECKED_CAST")
             // 透传上报字段
             holder.cardId = item.cardId
             holder.cardTitle = item.cardTitle
-            setVariable(holder.getBinding(), item.data as T, position)
+            setVariable(holder.getBinding(), item.data as T, position,lifecycleOwner)
         } else {
-            setVariable(holder.getBinding(), item, position)
+            setVariable(holder.getBinding(), item, position,lifecycleOwner)
         }
         holder.getBinding<ViewDataBinding>().executePendingBindings()
     }
@@ -110,5 +110,5 @@ abstract class BindingAdapterDelegate<T, BD:ViewDataBinding> : CardAdapterDelega
     /**
      * 更新数据
      */
-    abstract fun setVariable(binding: BD, item: T, position: Int)
+    abstract fun setVariable(binding: BD, item: T, position: Int,lifecycleOwner: LifecycleOwner)
 }

@@ -36,7 +36,7 @@ abstract class AbsSmartAdapter constructor(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        adapterManager.onBindViewHolder(holder, position, getItem(position))
+        adapterManager.onBindViewHolder(holder, position, getItem(position),lifecycleOwner)
     }
 
     override fun onBindViewHolder(
@@ -45,7 +45,7 @@ abstract class AbsSmartAdapter constructor(
         payloads: MutableList<Any>
     ) {
         onBindViewHolder(holder, position)
-        adapterManager.onBindViewHolder(holder, position, payloads, getItem(position))
+        adapterManager.onBindViewHolder(holder, position, payloads, getItem(position),lifecycleOwner)
     }
 
     override fun getItemViewType(position: Int): Int {

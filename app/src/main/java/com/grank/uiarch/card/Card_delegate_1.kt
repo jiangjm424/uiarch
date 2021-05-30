@@ -22,7 +22,7 @@ class Card_delegate_1: BindingAdapterDelegate<String,DashItem1Binding>("1") {
         val TAG = "1"
     }
 
-    override fun setVariable(binding: DashItem1Binding, item: String, position: Int) {
+    override fun setVariable(binding: DashItem1Binding, item: String, position: Int,lifecycleOwner: LifecycleOwner) {
         val map = Gson().fromJson<Map<String, String>>(item)
         binding.desc.text = map["editorIntro$position"]
     }

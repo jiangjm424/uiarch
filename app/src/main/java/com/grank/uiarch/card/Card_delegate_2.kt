@@ -24,8 +24,8 @@ class Card_delegate_2: BindingAdapterDelegate<String,DashItem2Binding>("50001") 
         val TAG = "50001"
     }
 
-    override fun setVariable(binding: DashItem2Binding, item: String, position: Int) {
+    override fun setVariable(binding: DashItem2Binding, item: String, position: Int,lifecycleOwner: LifecycleOwner) {
         val map = Gson().fromJson<Map<String,String>>(item)
-        binding.icon.loadImage(map["iconUrl$position"])
+        map["iconUrl$position"]?.let { binding.icon.loadImage(it) }
     }
 }
