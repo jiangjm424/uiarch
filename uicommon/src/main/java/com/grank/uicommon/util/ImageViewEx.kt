@@ -28,24 +28,22 @@ fun ImageView.loadImage(
     errorDrawable: Drawable?=null,
     circleCrop: Boolean = false
 ) {
-    if (url != null) {
-        when {
-            circleCrop -> GlideApp.with(context)
+    when {
+        circleCrop -> GlideApp.with(context)
+            .load(url)
+            .apply(
+                RequestOptions.bitmapTransform(CircleCrop()).placeholder(holderDrawable)
+                    .error(errorDrawable)
+            )
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(this)
+        else -> {
+            GlideApp.with(context)
                 .load(url)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()).placeholder(holderDrawable).error(errorDrawable))
+                .apply(RequestOptions().placeholder(holderDrawable).error(errorDrawable))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(this)
-            else -> {
-                GlideApp.with(context)
-                    .load(url)
-                    .apply(RequestOptions().placeholder(holderDrawable).error(errorDrawable))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(this)
-            }
         }
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
     }
 }
 fun ImageView.loadImage(
@@ -54,53 +52,50 @@ fun ImageView.loadImage(
     errorDrawable: Drawable?=null,
     circleCrop: Boolean = false
 ) {
-    if (drawable != null) {
-        when {
-            circleCrop -> GlideApp.with(context)
+    when {
+        circleCrop -> GlideApp.with(context)
+            .load(drawable)
+            .apply(
+                RequestOptions.bitmapTransform(CircleCrop()).placeholder(holderDrawable)
+                    .error(errorDrawable)
+            )
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(this)
+        else -> {
+            GlideApp.with(context)
                 .load(drawable)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()).placeholder(holderDrawable).error(errorDrawable))
+                .apply(RequestOptions().placeholder(holderDrawable).error(errorDrawable))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(this)
-            else -> {
-                GlideApp.with(context)
-                    .load(drawable)
-                    .apply(RequestOptions().placeholder(holderDrawable).error(errorDrawable))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(this)
-            }
         }
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
     }
 }
 
+fun ImageView.clear(){
+    setImageDrawable(null)
+    GlideApp.with(context).clear(this)
+}
 @BindingAdapter(value = ["packageName", "circle"], requireAll = false)
-fun ImageView.loadAppIcon(packageName: String?, circle: Boolean = false) {
-    if (packageName != null) {
-        val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
-        val uri = Uri.Builder()
-            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(packageName)
-            .path(java.lang.String.valueOf(iconResourceId))
-            .build()
-        GlideApp.with(context)
-            .load(uri)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .apply {
-                if (circle)
-                    apply(RequestOptions.bitmapTransform(CircleCrop()))
-            }
-            .into(this)
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
-    }
+fun ImageView.loadAppIcon(packageName: String, circle: Boolean = false) {
+    val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
+    val uri = Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(packageName)
+        .path(java.lang.String.valueOf(iconResourceId))
+        .build()
+    GlideApp.with(context)
+        .load(uri)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .apply {
+            if (circle)
+                apply(RequestOptions.bitmapTransform(CircleCrop()))
+        }
+        .into(this)
 }
 
 @BindingAdapter(value = ["roundIconUrl", "roundForeGround", "roundIconRadius", "withCenterCrop"], requireAll = false)
 fun ImageView.loadRoundImage(
-    url: String?,
+    url: String,
     roundForeGround: Drawable?,
     roundRadius: Float,
     withCenterCrop: Boolean = true
@@ -122,27 +117,22 @@ fun ImageView.loadRoundImage(
         .into(this)
 }
 
-fun ImageView.loadRoundAppIcon(packageName: String?, roundRadius: Float) {
-    if (packageName != null) {
-        val context = context
-        val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
-        val uri = Uri.Builder()
-            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(packageName)
-            .path(java.lang.String.valueOf(iconResourceId))
-            .build()
-        val radius = (roundRadius + 0.5f).roundToInt()
-        val options: RequestOptions = RequestOptions()
-            .transform(CenterCrop(), RoundedCorners(radius))
-        GlideApp.with(context)
-            .load(uri)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .apply(options)
-            .into(this)
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
-    }
+fun ImageView.loadRoundAppIcon(packageName: String, roundRadius: Float) {
+    val context = context
+    val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
+    val uri = Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(packageName)
+        .path(java.lang.String.valueOf(iconResourceId))
+        .build()
+    val radius = (roundRadius + 0.5f).roundToInt()
+    val options: RequestOptions = RequestOptions()
+        .transform(CenterCrop(), RoundedCorners(radius))
+    GlideApp.with(context)
+        .load(uri)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .apply(options)
+        .into(this)
 }
 
 fun ImageView.loadCircle(
@@ -280,27 +270,22 @@ fun ImageView.loadBlur(
  * @param glowRadius Float
  */
 fun ImageView.loadGlowBgAppIcon(
-    packageName: String?,
+    packageName: String,
     iconSize: Float,
     strokeSize: Float,
     glowRadius: Float
 ) {
-    if (packageName != null) {
-        val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
-        val uri = Uri.Builder()
-            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(packageName)
-            .path(java.lang.String.valueOf(iconResourceId))
-            .build()
-        GlideApp.with(context)
-            .load(uri)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(GlowBgAppIconTransformation(iconSize, strokeSize, glowRadius))
-            .into(this)
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
-    }
+    val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
+    val uri = Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(packageName)
+        .path(java.lang.String.valueOf(iconResourceId))
+        .build()
+    GlideApp.with(context)
+        .load(uri)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .transform(GlowBgAppIconTransformation(iconSize, strokeSize, glowRadius))
+        .into(this)
 }
 
 /**
@@ -312,27 +297,22 @@ fun ImageView.loadGlowBgAppIcon(
  * @param blurRadius Float
  */
 fun ImageView.loadBlurBgAppIcon(
-    packageName: String?,
+    packageName: String,
     maskDrawableId: Int,
     iconSize: Float,
     blurRadius: Float
 ) {
-    if (packageName != null) {
-        val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
-        val uri = Uri.Builder()
-            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-            .authority(packageName)
-            .path(java.lang.String.valueOf(iconResourceId))
-            .build()
-        GlideApp.with(context)
-            .load(uri)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurBgAppIconTransformation(context.applicationContext, maskDrawableId, iconSize, blurRadius))
-            .into(this)
-    } else {
-        setImageDrawable(null)
-        GlideApp.with(context).clear(this)
-    }
+    val iconResourceId = context.packageManager.getApplicationInfo(packageName, 0).icon
+    val uri = Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(packageName)
+        .path(java.lang.String.valueOf(iconResourceId))
+        .build()
+    GlideApp.with(context)
+        .load(uri)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .transform(BlurBgAppIconTransformation(context.applicationContext, maskDrawableId, iconSize, blurRadius))
+        .into(this)
 }
 
 
