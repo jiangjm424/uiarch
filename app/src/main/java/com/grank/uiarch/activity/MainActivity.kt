@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.grank.logger.Log
 import com.grank.datacenter.net.NetStateManager
@@ -17,9 +18,11 @@ import com.grank.uiarch.ui.dashboard.DashboardFragment
 import com.grank.uiarch.ui.ext.setupWithFragments
 import com.grank.uiarch.ui.home.HomeFragment
 import com.grank.uiarch.ui.notifications.NotificationsFragment
+import com.grank.uiarch.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@Route(path = "/app/main")
 @AndroidEntryPoint
 class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
 
@@ -34,7 +37,7 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
 
     private var bottomNavigationView: BottomNavigationView? = null
 
-    private val viewModel:MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override val layoutRes: Int
         get() = R.layout.activity_main

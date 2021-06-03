@@ -1,4 +1,4 @@
-package com.grank.uiarch.activity
+package com.grank.uiarch.viewmodel
 
 import android.app.Application
 import androidx.datastore.core.DataStore
@@ -13,8 +13,6 @@ import androidx.lifecycle.viewModelScope
 import com.grank.uiarch.model.AppRepository
 import com.grank.uicommon.ui.base.BaseViewModel
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 

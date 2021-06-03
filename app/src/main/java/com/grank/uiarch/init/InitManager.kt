@@ -31,6 +31,7 @@ class InitManager
     private val appLifecycleCoroutineScope: LifecycleCoroutineScope
 ) {
 
+    //初始化一些本地的库，不需要用户授权即可以运行
     fun init(mainProcess: Boolean, processName: String) {
         initBlockSync("logger") {
             initLogger(context, processName)
@@ -63,6 +64,10 @@ class InitManager
         Log.i(TAG, "init done!!")
     }
 
+    //需要用户授权才能初始化的一些库，比如会联网的库，使用了一些权限的库
+    fun initAfterCta(){
+
+    }
     private fun initLogger(context: Context, processName: String) {
         Log.initLogger(context, processName, "UiArch", "", true) {
             appLifecycleCoroutineScope.launch {
