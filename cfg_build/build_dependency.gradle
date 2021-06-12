@@ -326,8 +326,8 @@ ext.build_tools_versions = build_tools_versions
 
 //后台接口
 def apiServerUrl = [:]
-//apiServerUrl.dev = '"https://m2-dev.fcb.com.cn/"'
-apiServerUrl.dev = '"https://localhost:6878/"'
-apiServerUrl.test = '"https://localhost:6878/"'
-apiServerUrl.release = '"https://localhost:6878/"'
+//apiServerUrl.dev = '"https://localhost:6878/"'
+apiServerUrl.dev = '"https://wanandroid.com/"'
+apiServerUrl.test = '"https://wanandroid.com/"'
+apiServerUrl.release = '"https://wanandroid.com"'
 ext.apiServerUrl = apiServerUrl

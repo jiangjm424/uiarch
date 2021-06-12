@@ -3,10 +3,12 @@ package com.grank.uiarch.ui.home
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.grank.datacenter.db.DemoEntity
+import com.grank.datacenter.model.Article
 import com.grank.datacenter.net.Resource
 import com.grank.logger.Log
 import com.grank.uiarch.R
@@ -16,6 +18,8 @@ import com.grank.uiarch.testdi.SelfDi
 import com.grank.uiarch.testdi.log
 import com.grank.uicommon.ui.GToast
 import com.grank.uicommon.ui.base.AbsDataBindingFragment
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
@@ -25,78 +29,52 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
 
-    @Inject
-    lateinit var hiltTest: HiltTest
-
-    @Inject
-    lateinit var selfDi: SelfDi
-
     override val layoutRes: Int = R.layout.fragment_home
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    var ii: Long = 0
+    @Inject
+    lateinit var homeArticleAdapter: HomeArticleAdapter
+
+    @Inject
+    lateinit var gToast: GToast
+
     override fun setupView(binding: FragmentHomeBinding) {
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager)
-        binding.viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = binding.tabs
-        tabs.setupWithViewPager(binding.viewPager)
-        tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        val fab: FloatingActionButton = binding.fab
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            hiltTest.print()
-            hiltTest.log("action" +
-                    "cccc")
-            selfDi.pp()
-//            homeViewModel.getState()
-//            homeViewModel.gettoppage()
-            gToast.show("kwkwkwkwkwkw")
-            homeViewModel.getvv()
-//            homeViewModel.add(DemoEntity(ii++, System.currentTimeMillis().toString() + " hh"))
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = homeArticleAdapter
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            Log.i("jiang","setOnRefreshListener")
+            homeViewModel.getHomeArticles()
         }
-        binding.fab2.setOnClickListener {
-           val j= viewLifecycleScope.launch {
-                val bb = homeViewModel.geta().collect {
-                    Log.i("jiang","flow $it")
-                    it
-                }
-               val cc = homeViewModel.geta().first()
+        binding.swipeRefreshLayout.setOnLoadMoreListener {
+            Log.i("jiang","next setOnLoadMoreListener")
+            loadNextPageData()
+        }
 
+    }
+
+    private fun loadNextPageData() {
+        homeViewModel.loadNextPage().observe(viewLifecycleOwner) {
+            if (it.status == Resource.Status.SUCCESS) {
+                Log.i("jiang","next sucess")
+                homeArticleAdapter.add(it.data!!)
+                dataBinding.swipeRefreshLayout.finishLoadMore(true)
+            } else if (it.status == Resource.Status.FAIL) {
+                Log.i("jiang","next faile")
+                dataBinding.swipeRefreshLayout.finishLoadMore(false)
             }
         }
     }
 
-    @Inject
-    lateinit var gToast:GToast
     override fun setupData(binding: FragmentHomeBinding, lifecycleOwner: LifecycleOwner) {
-
-        homeViewModel.newAppVersion.observe(viewLifecycleOwner) {
-            Log.i(it.toString())
-        }
-        homeViewModel.text.observe(this) {
-            if (it.status == Resource.Status.SUCCESS) {
-                Log.v("sucess:${it.data?.cstateno}")
-            }
-            Log.v("res:$it")
-        }
-        homeViewModel.toppage.observe(viewLifecycleOwner) {
-            Log.i("jiang","$it")
-        }
-        lifecycleScope.launchWhenCreated {
-
-            homeViewModel.getallDemo().collect {
-                it.forEach {
-                    Log.i("jiang", "entity: ${it.name}")
-                }
-            }
+        homeViewModel.articles.observe(lifecycleOwner) {
+            homeArticleAdapter.add(it!!, true)
+            dataBinding.swipeRefreshLayout.finishLoadMore(true)
         }
     }
 
     override fun onPageFirstComing() {
-        Log.i("jiang","home page first coming")
+        homeViewModel.getHomeArticles()
     }
 
     override fun destroyView(binding: FragmentHomeBinding) {

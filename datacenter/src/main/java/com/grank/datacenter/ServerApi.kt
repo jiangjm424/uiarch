@@ -4,7 +4,6 @@ import com.grank.datacenter.net.ApiResult
 import com.grank.datacenter.model.*
 import retrofit2.http.*
 
-val SERVER = "https://localhost:6878/"
 
 /**
  * 1 在每个请求方法中，如果需要添加参数，则调用时传入的参数不能为null否则报错
@@ -20,7 +19,7 @@ interface ServerApi {
      */
 
     @GET("/article/list/{page}/json")
-    fun getHomeList(
+    suspend fun getHomeList(
         @Path("page") page: Int
     ): ApiResult<HomeListResponse>
 
@@ -29,7 +28,7 @@ interface ServerApi {
      * http://www.wanandroid.com/tree/json
      */
     @GET("/tree/json")
-    fun getTypeTreeList(): ApiResult<List<TreeListResponse>>
+    suspend fun getTypeTreeList(): ApiResult<List<TreeListResponse>>
 
     /**
      * 知识体系下的文章
@@ -38,7 +37,7 @@ interface ServerApi {
      * @param cid cid
      */
     @GET("/article/list/{page}/json")
-    fun getArticleList(
+    suspend fun getArticleList(
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): ApiResult<ArticleListResponse>
@@ -48,14 +47,14 @@ interface ServerApi {
      * http://www.wanandroid.com/friend/json
      */
     @GET("/friend/json")
-    fun getFriendList(): ApiResult<FriendListResponse>
+    suspend fun getFriendList(): ApiResult<FriendListResponse>
 
     /**
      * 大家都在搜
      * http://www.wanandroid.com/hotkey/json
      */
     @GET("/hotkey/json")
-    fun getHotKeyList(): ApiResult<HotKeyResponse>
+    suspend fun getHotKeyList(): ApiResult<List<HotKeyResponse>>
 
     /**
      * 搜索
@@ -65,7 +64,7 @@ interface ServerApi {
      */
     @POST("/article/query/{page}/json")
     @FormUrlEncoded
-    fun getSearchList(
+    suspend fun getSearchList(
         @Path("page") page: Int,
         @Field("k") k: String
     ): ApiResult<HomeListResponse>
@@ -78,7 +77,7 @@ interface ServerApi {
      */
     @POST("/user/login")
     @FormUrlEncoded
-    fun loginWanAndroid(
+    suspend fun loginWanAndroid(
         @Field("username") username: String,
         @Field("password") password: String
     ): ApiResult<LoginResponse>
@@ -92,7 +91,7 @@ interface ServerApi {
      */
     @POST("/user/register")
     @FormUrlEncoded
-    fun registerWanAndroid(
+    suspend fun registerWanAndroid(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("repassword") repassowrd: String
@@ -104,7 +103,7 @@ interface ServerApi {
      * @return ApiResult<HomeListResponse>
      */
     @GET("/lg/collect/list/{page}/json")
-    fun getLikeList(
+    suspend fun getLikeList(
         @Path("page") page: Int
     ): ApiResult<HomeListResponse>
 
@@ -114,7 +113,7 @@ interface ServerApi {
      * @return ApiResult<HomeListResponse>
      */
     @POST("/lg/collect/{id}/json")
-    fun addCollectArticle(
+    suspend fun addCollectArticle(
         @Path("id") id: Int
     ): ApiResult<HomeListResponse>
 
@@ -127,7 +126,7 @@ interface ServerApi {
      */
     @POST("/lg/collect/add/json")
     @FormUrlEncoded
-    fun addCollectOutsideArticle(
+    suspend fun addCollectOutsideArticle(
         @Field("title") title: String,
         @Field("author") author: String,
         @Field("link") link: String
@@ -141,7 +140,7 @@ interface ServerApi {
      */
     @POST("/lg/uncollect/{id}/json")
     @FormUrlEncoded
-    fun removeCollectArticle(
+    suspend fun removeCollectArticle(
         @Path("id") id: Int,
         @Field("originId") originId: Int = -1
     ): ApiResult<HomeListResponse>
@@ -151,13 +150,13 @@ interface ServerApi {
      * @return BannerResponse
      */
     @GET("/banner/json")
-    fun getBanner(): ApiResult<BannerResponse>
+    suspend fun getBanner(): ApiResult<List<BannerResponse>>
 
     /**
      * 我的常用网址
      * @return FriendListResponse
      */
     @GET("/lg/collect/usertools/json")
-    fun getBookmarkList(): ApiResult<FriendListResponse>
+    suspend fun getBookmarkList(): ApiResult<List<FriendListResponse>>
 
 }

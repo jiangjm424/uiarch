@@ -53,10 +53,10 @@ abstract class ApiResult<T> {
                     "empty response body error ",
                     HttpURLConnection.HTTP_NO_CONTENT,
                 )
-            val errorNumber = ErrorCode.parseCode(commonResponse.code)
+            val errorNumber = commonResponse.errorCode
             if (errorNumber != 0) {
                 val errorMessage =
-                    "RC error code : ${commonResponse.code} and parsed code is $errorNumber, error msg: ${commonResponse.message}"
+                    "RC error code : ${commonResponse.errorCode} and parsed code is $errorNumber, error msg: ${commonResponse.errorMsg}"
                 return Fail(RC_ERROR, errorMessage, errorNumber,  commonResponse)
             }
 
