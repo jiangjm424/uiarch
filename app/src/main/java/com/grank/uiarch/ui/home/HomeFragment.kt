@@ -69,7 +69,7 @@ class HomeFragment : AbsDataBindingFragment<FragmentHomeBinding>() {
     override fun setupData(binding: FragmentHomeBinding, lifecycleOwner: LifecycleOwner) {
         homeViewModel.articles.observe(lifecycleOwner) {
             homeArticleAdapter.add(it!!, true)
-            dataBinding.swipeRefreshLayout.finishLoadMore(true)
+            dataBinding.swipeRefreshLayout.finishRefresh(true)
         }
     }
 

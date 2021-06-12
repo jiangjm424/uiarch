@@ -20,6 +20,10 @@ class HomeArticleAdapter @Inject constructor() : RecyclerView.Adapter<HomeArticl
     fun add(list: List<Article>,clear:Boolean = false) {
         if (clear) {
             articles.clear()
+            notifyDataSetChanged()  //在清除数据后需要先同步一次数据，否则会报Inconsistency detected. Invalid view holder adapter错误
+            articles.addAll(list)
+            notifyDataSetChanged()
+            return
         }
         val s = articles.size
         articles.addAll(articles.size, list)
