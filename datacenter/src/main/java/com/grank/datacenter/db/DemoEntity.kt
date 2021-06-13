@@ -1,5 +1,6 @@
 package com.grank.datacenter.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,5 +8,7 @@ import androidx.room.PrimaryKey
 data class DemoEntity (
     @PrimaryKey(autoGenerate = true)
     val id:Long=0,
-    val name:String
+    @ColumnInfo(name="name",typeAffinity = ColumnInfo.TEXT,defaultValue = "n")
+    val name:String,
+    val sex:String
 )

@@ -9,6 +9,11 @@ android {
     defaultConfig {
         versionCode 1
         versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":"$projectDir/src/room_schema".toString()]
+            }
+        }
     }
 }
 
