@@ -14,7 +14,6 @@ import com.grank.uiarch.testdi.HiltTest
 import com.grank.uiarch.testdi.SelfDi
 import com.grank.uicommon.ui.base.AbsDataBindingActivity
 import com.grank.uiarch.ui.dashboard.DashboardFragment
-import com.grank.uiarch.ui.ext.setupWithFragments
 import com.grank.uiarch.ui.home.HomeFragment
 import com.grank.uiarch.ui.notifications.NotificationsFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +39,8 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     override fun setupView(binding: ActivityMainBinding) {
-        setupBottomNavigationBar(binding)
+//        setupBottomNavigationBar(binding)
+        setupBottomNavByGraph()
         hiltTest.print()
         selfDi.pp()
     }
@@ -64,25 +64,5 @@ class MainActivity : AbsDataBindingActivity<ActivityMainBinding>() {
     }
 
 
-    /**
-     * 通过自己控件导航
-     * Called on first creation and when restoring state.
-     */
-    private fun setupBottomNavigationBar(binding: ActivityMainBinding) {
-        bottomNavigationView = binding.navView
-        bottomNavigationView?.itemIconTintList = null
-        bottomNavigationView?.setupWithFragments(
-            listOf(
-                Pair(R.id.navigation_home, HomeFragment::class.java as Class<Fragment>),
-                Pair(R.id.navigation_dashboard, DashboardFragment::class.java as Class<Fragment>),
-                Pair(R.id.navigation_notifications, NotificationsFragment::class.java as Class<Fragment>
-                )
-            ),
-            fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_fragment,
-        ) {
-        }
-        bottomNavigationView?.selectedItemId = R.id.navigation_home
-    }
 
 }
