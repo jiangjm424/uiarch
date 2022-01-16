@@ -13,7 +13,7 @@ def kotlin = [:]
 if (properties.getProperty("kotlin_version") != null) {
     versions.kotlin = properties.getProperty("kotlin_version")
 } else {
-    versions.kotlin = "1.4.10"
+    versions.kotlin = "1.5.30"
 }
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
@@ -22,7 +22,7 @@ kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
 deps.kotlin = kotlin
 
 def kotlinx = [:]
-versions.kotlinx = "1.3.9"
+versions.kotlinx = "1.5.0"
 kotlinx.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlinx"
 kotlinx.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlinx"
 kotlinx.coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.0"
@@ -111,7 +111,7 @@ smartrefresh.header = "com.scwang.smart:refresh-header-classics:${versions.smart
 deps.smartrefresh = smartrefresh
 
 def room = [:]
-versions.room = "2.2.5"
+versions.room = "2.4.0-alpha04"
 room.runtime = "androidx.room:room-runtime:${versions.room}"
 room.compiler = "androidx.room:room-compiler:${versions.room}"
 room.ktx = "androidx.room:room-ktx:${versions.room}"
